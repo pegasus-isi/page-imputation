@@ -46,7 +46,7 @@ def getDAX( genotype_file,
         dax.addJob( phase_shapeit_job )
         dax.depends( parent=test_shapeit_job,child=phase_shapeit_job )
 
-        impute_job = construct_imputation_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, 0, 0 )
+        impute_job = construct_imputation_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, "20.4e6", "20.5e6" )
         dax.addJob( impute_job )
         dax.depends( parent=phase_shapeit_job, child=impute_job )
         dax.depends( parent=test_shapeit_job, child=impute_job )
@@ -65,17 +65,20 @@ def construct_extract_job( prefix, chromosome_num ):
     """
     j = Job(name="extract_chromosome")
 
+    chromosome_str = str(chromosome_num)
+    chromosome_name =  "chr" + chromosome_str
+
     args = []
-    args.append( "--vanilla" )
-    args.append( "--args" )
+    args.append( chromosome_str )
+    args.append( chromosome_name )
 
     genotype_lfn = prefix + ".vcf.gz"
     j.uses(File( genotype_lfn ), link=Link.INPUT)
 
-    chromosome_str = str(chromosome_num)
+
 
     #construct the output files
-    for suffix in [ ".vcf.bgz" ".vcf.bgz.tbi"]:
+    for suffix in [ ".vcf.bgz" , ".vcf.bgz.tbi"]:
         output_file = prefix + "-" + chromosome_str + suffix
         j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
@@ -96,24 +99,25 @@ def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, s
     j = Job(name="test-shapeit")
 
     chromosome_str = str(chromosome_num)
+    chromosome_name =  "chr" + chromosome_str
 
     args = []
-    args.append( "--vanilla" )
-    args.append( "--args" )
+    args.append( chromosome_str )
+    args.append( chromosome_name )
 
     for suffix in [ ".vcf.bgz" ]:
         input_file = prefix + "-" + chromosome_str + suffix
-        j.uses(File( input_file ), link=Link.INPUT)
+        j.uses( input_file , link=Link.INPUT)
 
-    j.uses( File(snps_exclude_lfn), link=Link.INPUT)
+    j.uses( snps_exclude_lfn, link=Link.INPUT)
 
     #construct the input reference files files
-    for suffix in [ "legend.gz" ".hap.gz"]:
+    for suffix in [ "legend.gz", ".hap.gz"]:
         input_file = reference_file_prefix + chromosome_str + suffix
-        j.uses(File( input_file ), link=Link.INPUT)
+        j.uses(input_file , link=Link.INPUT)
 
     reference_sample_file = File( reference_file_prefix + ".sample")
-    j.uses( File(reference_sample_file), link=Link.INPUT)
+    j.uses( reference_sample_file, link=Link.INPUT)
 
     output_file = prefix + "-" + chromosome_str + "-" + "duplicate-snp-site.txt"
     j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
@@ -135,10 +139,12 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     j = Job(name="phase-shapeit")
 
     chromosome_str = str(chromosome_num)
+    chromosome_name =  "chr" + chromosome_str
 
     args = []
-    args.append( "--vanilla" )
-    args.append( "--args" )
+    args.append( chromosome_str )
+    args.append( " " )
+    args.append( chromosome_name )
 
     for suffix in [ ".vcf.bgz" ]:
         input_file = prefix + "-" + chromosome_str + suffix
@@ -149,12 +155,12 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     j.uses( File(duplicate_snp_lfn), link=Link.INPUT)
 
     #construct the input reference files files
-    for suffix in [ "legend.gz" ".hap.gz"]:
+    for suffix in [ "legend.gz", ".hap.gz"]:
         input_file = reference_file_prefix + chromosome_str + suffix
         j.uses(File( input_file ), link=Link.INPUT)
 
     reference_sample_lfn = File( reference_file_prefix + ".sample")
-    j.uses( File(reference_sample_lfn), link=Link.INPUT)
+    j.uses( reference_sample_lfn, link=Link.INPUT)
 
     genetic_map_combined_lfn = "genetic_map_chr" + chromosome_str + "_combined_b37.txt"
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
@@ -178,11 +184,15 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     Output Files: mec-2010-11-19build37.map mec-2010-11-19.rsIDs.txt
     """
     j = Job(name="impute2")
+
     chromosome_str = str(chromosome_num)
+    chromosome_name =  "chr" + chromosome_str
 
     args = []
-    args.append( "--vanilla" )
-    args.append( "--args" )
+    args.append( chromosome_str )
+    args.append( chunk_start )
+    args.append( chunk_end )
+    args.append( chromosome_name )
 
     for suffix in [ ".haps" ]:
         input_file = prefix + "-" + chromosome_str + suffix
@@ -193,7 +203,7 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     j.uses( File(duplicate_snp_lfn), link=Link.INPUT)
 
     #construct the input reference files files
-    for suffix in [ "legend.gz" ".hap.gz"]:
+    for suffix in [ "legend.gz" ,".hap.gz"]:
         input_file = reference_file_prefix + chromosome_str + suffix
         j.uses(File( input_file ), link=Link.INPUT)
 
@@ -201,8 +211,9 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     genetic_map_combined_lfn = "genetic_map_chr" + chromosome_str + "_combined_b37.txt"
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
 
-    for output_file in ["impute2_diplotype_ordering" "impute_info" "impute2_info_by_sample" "impute2_summary" "impute2_warnings"]:
-        j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
+    output_prefix = prefix + "-" + chromosome_name + ".pos" + chunk_start + "-" + chunk_end ;
+    for suffix in [".impute2_diplotype_ordering" ,".impute_info" ,".impute2_info_by_sample", ".impute2_summary", ".impute2_warnings"]:
+        j.uses( output_prefix + suffix, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
     # Include dependant executable
     #j.uses(Executable("R"), link=Link.INPUT)
