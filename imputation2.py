@@ -182,6 +182,8 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     chromosome_str = str(chromosome_num)
     chromosome_name =  "chr" + chromosome_str
 
+    chunk_start = str( int(float(chunk_start)) )
+    chunk_end   = str( int(float(chunk_end)) )
     args = []
     args.append( chromosome_str )
     args.append( chunk_start )
