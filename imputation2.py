@@ -12,7 +12,7 @@ from Pegasus.DAX3 import *
 DEFAULT_CHROMOSOME_START                 = 1
 DEFAULT_CHROMOSOME_END                   = 22
 DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG = False #whether intermediate files make it to the output site or not
-DEFAULT_REFERENCE_FILE_PREFIX           = "1000GP_Phase3_"
+DEFAULT_REFERENCE_FILE_PREFIX           = "1000GP_Phase3"
 DEFAULT_EXCLUDE_SNPS_FILE_LFN           = "snps-to-exclude.txt"
 
 pegasus_config = "pegasus-config --python-dump"
@@ -111,13 +111,11 @@ def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, s
 
     j.uses( snps_exclude_lfn, link=Link.INPUT)
 
-    #construct the input reference files files
-    for suffix in [ "legend.gz", ".hap.gz"]:
-        input_file = reference_file_prefix + chromosome_str + suffix
-        j.uses(input_file , link=Link.INPUT)
+    #add base reference files
+    base_reference_files = get_base_reference_files( reference_file_prefix, chromosome_num )
+    for input in base_reference_files :
+        j.uses(input , link = Link.INPUT )
 
-    reference_sample_file = File( reference_file_prefix + ".sample")
-    j.uses( reference_sample_file, link=Link.INPUT)
 
     output_file = prefix + "-" + chromosome_str + "-" + "duplicate-snp-site.txt"
     j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
@@ -143,7 +141,6 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
 
     args = []
     args.append( chromosome_str )
-    args.append( " " )
     args.append( chromosome_name )
 
     for suffix in [ ".vcf.bgz" ]:
@@ -154,13 +151,10 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     duplicate_snp_lfn = prefix + "-" + chromosome_str + "-" + "duplicate-snp-site.txt"
     j.uses( File(duplicate_snp_lfn), link=Link.INPUT)
 
-    #construct the input reference files files
-    for suffix in [ "legend.gz", ".hap.gz"]:
-        input_file = reference_file_prefix + chromosome_str + suffix
-        j.uses(File( input_file ), link=Link.INPUT)
-
-    reference_sample_lfn = File( reference_file_prefix + ".sample")
-    j.uses( reference_sample_lfn, link=Link.INPUT)
+    #add base reference files
+    base_reference_files = get_base_reference_files( reference_file_prefix, chromosome_num )
+    for input in base_reference_files :
+        j.uses(input , link = Link.INPUT )
 
     genetic_map_combined_lfn = "genetic_map_chr" + chromosome_str + "_combined_b37.txt"
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
@@ -202,11 +196,10 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     duplicate_snp_lfn = prefix + "-" + chromosome_str + "-" + "duplicate-snp-site.txt"
     j.uses( File(duplicate_snp_lfn), link=Link.INPUT)
 
-    #construct the input reference files files
-    for suffix in [ "legend.gz" ,".hap.gz"]:
-        input_file = reference_file_prefix + chromosome_str + suffix
-        j.uses(File( input_file ), link=Link.INPUT)
-
+    #add base reference files
+    base_reference_files = get_base_reference_files( reference_file_prefix, chromosome_num )
+    for input in base_reference_files :
+        j.uses(input , link = Link.INPUT )
 
     genetic_map_combined_lfn = "genetic_map_chr" + chromosome_str + "_combined_b37.txt"
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
@@ -243,6 +236,21 @@ def getLFNAndAddToDAX( dax, file ):
     return lfn
 
 
+def get_base_reference_files( prefix, chromosome_num ):
+    """
+    Constructs the base references files
+    """
+
+
+    chromosome_str = str( chromosome_num )
+    files = []
+    #construct the input reference files
+    for suffix in [ ".legend.gz", ".hap.gz"]:
+        input_file = prefix + "_chr" + chromosome_str + suffix
+        files.append( input_file )
+
+    files.append( prefix + ".sample")
+    return files
 
 def get_erate_file_lfn( chromosome_num ):
     """
