@@ -6,7 +6,6 @@ import os
 import optparse
 import subprocess
 
-from Pegasus.DAX3 import *
 
 #some constants. can be updated via command line options
 DEFAULT_CHROMOSOME_START                 = 1
@@ -19,6 +18,8 @@ pegasus_config = "pegasus-config --python-dump"
 config = subprocess.Popen(pegasus_config, stdout=subprocess.PIPE, shell=True).communicate()[0]
 exec config
 
+
+from Pegasus.DAX3 import *
 
 def getDAX( genotype_file,
             chromosome_start,
