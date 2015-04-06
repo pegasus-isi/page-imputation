@@ -23,7 +23,9 @@ from Pegasus.DAX3 import *
 
 def getDAX( genotype_file,
             chromosome_start,
-            chromosome_end ):
+            chromosome_end ,
+            addon_test_shapeit_args=None,
+            addon_phase_shapeit_args=None):
     """
     This generates dax for a particular study and a date corresponding to it
     """
@@ -39,11 +41,11 @@ def getDAX( genotype_file,
         extract_job = construct_extract_job( prefix, chromosome )
         dax.addJob( extract_job )
 
-        test_shapeit_job = construct_test_shapeit_job( prefix, chromosome, reference_file_prefix, snps_to_exclude )
+        test_shapeit_job = construct_test_shapeit_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, addon_test_shapeit_args )
         dax.addJob( test_shapeit_job )
         dax.depends( parent=extract_job,child=test_shapeit_job )
 
-        phase_shapeit_job = construct_phase_shapeit_job( prefix, chromosome, reference_file_prefix , snps_to_exclude)
+        phase_shapeit_job = construct_phase_shapeit_job( prefix, chromosome, reference_file_prefix , snps_to_exclude, addon_phase_shapeit_args)
         dax.addJob( phase_shapeit_job )
         dax.depends( parent=test_shapeit_job,child=phase_shapeit_job )
 
@@ -91,7 +93,7 @@ def construct_extract_job( prefix, chromosome_num ):
 
     return j
 
-def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, snps_exclude_lfn ):
+def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, snps_exclude_lfn, addon_args):
     """
     This function returns a R job to the workflow that updates the input maps.
     Input File: mec-2010-11-19.map
@@ -105,6 +107,8 @@ def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, s
     args = []
     args.append( chromosome_str )
     args.append( chromosome_name )
+    if addon_args is not None:
+        args.append( addon_args )
 
     for suffix in [ ".vcf.bgz" ]:
         input_file = prefix + "-" + chromosome_str + suffix
@@ -129,7 +133,7 @@ def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, s
 
     return j
 
-def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, snps_exclude_lfn ):
+def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, snps_exclude_lfn, addon_args ):
     """
     This function returns a R job to the workflow that updates the input maps.
     Input File: mec-2010-11-19.map
@@ -143,6 +147,8 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     args = []
     args.append( chromosome_str )
     args.append( chromosome_name )
+    if addon_args is not None:
+        args.append( addon_args )
 
     for suffix in [ ".vcf.bgz" ]:
         input_file = prefix + "-" + chromosome_str + suffix
@@ -278,10 +284,12 @@ def main():
 
     parser = optparse.OptionParser (usage=usage, description=description)
 
-    parser.add_option ("-g", "--genotype-file", action="store", type="str", dest="genotype_file",  help="basename of the genotype-file")
-    parser.add_option ("-s", "--chromosome-start", action="store", type="int", dest="chromosome_start", help="chromosome start index")
-    parser.add_option ("-e", "--chromosome-end", action="store", type="int", dest="chromosome_end", help="chromosome end index")
-    parser.add_option ("-o", "--output-dax", action="store", type="str", dest="daxfile", help="the output dax file to write")
+    parser.add_option("-g", "--genotype-file", action="store", type="str", dest="genotype_file",  help="basename of the genotype-file")
+    parser.add_option("-s", "--chromosome-start", action="store", type="int", dest="chromosome_start", help="chromosome start index")
+    parser.add_option("-e", "--chromosome-end", action="store", type="int", dest="chromosome_end", help="chromosome end index")
+    parser.add_option("-o", "--output-dax", action="store", type="str", dest="daxfile", help="the output dax file to write")
+    parser.add_option("--test-shapeit-args", action="store", type="str", dest="test_shapeit_args", help="extra arguments to be passed to test shapeit job")
+    parser.add_option("--phase-shapeit-args", action="store", type="str", dest="phase_shapeit_args", help="extra arguments to be passed to phase shapeit job")
 
     #Parsing command-line options
     (options, args) = parser.parse_args ()
@@ -303,7 +311,9 @@ def main():
 
     dax = getDAX( options.genotype_file,
                   options.chromosome_start,
-                  options.chromosome_end)
+                  options.chromosome_end,
+                  options.test_shapeit_args,
+                  options.phase_shapeit_args)
 
     f = open( options.daxfile,"w" )
     print "Writing DAX to %s" %(os.path.abspath( options.daxfile ) )
