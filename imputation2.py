@@ -179,7 +179,7 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
 
     for suffix in [".haps", ".sample", ".snp.mm", ".ind.mm", ".log" ]:
-        output_file = prefix + "." + chromosome_name + suffix
+        output_file = prefix + ".phase." + chromosome_name + suffix
         j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
     # Include dependant executable
