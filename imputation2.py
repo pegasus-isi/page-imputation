@@ -72,6 +72,7 @@ def construct_extract_job( prefix, chromosome_num ):
     chromosome_name =  "chr" + chromosome_str
 
     args = []
+    args.append( prefix )
     args.append( chromosome_str )
     args.append( chromosome_name )
 
@@ -81,9 +82,12 @@ def construct_extract_job( prefix, chromosome_num ):
 
 
     #construct the output files
-    for suffix in [ ".vcf.bgz" , ".vcf.bgz.tbi"]:
-        output_file = prefix + "-" + chromosome_str + suffix
+    for suffix in [ ".recode.vcf.gz" , ".recode.vcf.gz.tbi"]:
+        output_file = prefix + "." + chromosome_name + suffix
         j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
+
+    duplicate_snp_file = get_duplicate_snp_lfn( prefix, chromosome_num );
+    j.uses( File(duplicate_snp_file), link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
     # Include dependant executable
     #j.uses(Executable("R"), link=Link.INPUT)
@@ -105,24 +109,32 @@ def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, s
     chromosome_name =  "chr" + chromosome_str
 
     args = []
+    args.append( prefix )
     args.append( chromosome_str )
     args.append( chromosome_name )
     if addon_args is not None:
         args.append( addon_args )
 
-    for suffix in [ ".vcf.bgz" ]:
-        input_file = prefix + "-" + chromosome_str + suffix
+    for suffix in [ ".recode.vcf.gz" ]:
+        input_file = prefix + "." + chromosome_name + suffix
         j.uses( input_file , link=Link.INPUT)
 
-    j.uses( snps_exclude_lfn, link=Link.INPUT)
+    duplicate_snp_file = get_duplicate_snp_lfn( prefix, chromosome_num );
+    j.uses( File(duplicate_snp_file), link=Link.INPUT)
+
+    #j.uses( snps_exclude_lfn, link=Link.INPUT)
 
     #add base reference files
     base_reference_files = get_base_reference_files( reference_file_prefix, chromosome_num )
     for input in base_reference_files :
         j.uses(input , link = Link.INPUT )
 
+    #add the output log files
+    for suffix in ["alignments.snp.log", "alignments.snp.strand", "alignments.snp.strand.exclude"]:
+        output_file = prefix + "." + chromosome_name + "." + suffix
+        j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
-    output_file = prefix + "-" + chromosome_str + "-" + "duplicate-snp-site.txt"
+    output_file = get_total_snp_exclude_lfn( prefix, chromosome_num )
     j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
     # Include dependant executable
@@ -145,18 +157,18 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     chromosome_name =  "chr" + chromosome_str
 
     args = []
+    args.append( prefix )
     args.append( chromosome_str )
     args.append( chromosome_name )
     if addon_args is not None:
         args.append( addon_args )
 
-    for suffix in [ ".vcf.bgz" ]:
-        input_file = prefix + "-" + chromosome_str + suffix
-        j.uses(File( input_file ), link=Link.INPUT)
+    for suffix in [ ".recode.vcf.gz" ]:
+        input_file = prefix + "." + chromosome_name + suffix
+        j.uses( input_file , link=Link.INPUT)
 
-    j.uses( File(snps_exclude_lfn), link=Link.INPUT)
-    duplicate_snp_lfn = prefix + "-" + chromosome_str + "-" + "duplicate-snp-site.txt"
-    j.uses( File(duplicate_snp_lfn), link=Link.INPUT)
+    total_snps_excluded_file = get_total_snp_exclude_lfn( prefix, chromosome_num )
+    j.uses( total_snps_excluded_file, link=Link.INPUT)
 
     #add base reference files
     base_reference_files = get_base_reference_files( reference_file_prefix, chromosome_num )
@@ -166,8 +178,8 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     genetic_map_combined_lfn = "genetic_map_chr" + chromosome_str + "_combined_b37.txt"
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
 
-    for suffix in [".haps", ".sample" ]:
-        output_file = prefix + "-" + chromosome_str + suffix
+    for suffix in [".haps", ".sample", ".snp.mm", ".ind.mm", ".log" ]:
+        output_file = prefix + "." + chromosome_name + suffix
         j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
     # Include dependant executable
@@ -192,18 +204,15 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     chunk_start = str( int(float(chunk_start)) )
     chunk_end   = str( int(float(chunk_end)) )
     args = []
+    args.append( prefix )
     args.append( chromosome_str )
     args.append( chunk_start )
     args.append( chunk_end )
     args.append( chromosome_name )
 
     for suffix in [ ".haps" ]:
-        input_file = prefix + "-" + chromosome_str + suffix
+        input_file = prefix + "." + chromosome_name + suffix
         j.uses(File( input_file ), link=Link.INPUT)
-
-    j.uses( File(snps_exclude_lfn), link=Link.INPUT)
-    duplicate_snp_lfn = prefix + "-" + chromosome_str + "-" + "duplicate-snp-site.txt"
-    j.uses( File(duplicate_snp_lfn), link=Link.INPUT)
 
     #add base reference files
     base_reference_files = get_base_reference_files( reference_file_prefix, chromosome_num )
@@ -213,7 +222,7 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     genetic_map_combined_lfn = "genetic_map_chr" + chromosome_str + "_combined_b37.txt"
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
 
-    output_prefix = prefix + "-" + chromosome_name + ".pos" + chunk_start + "-" + chunk_end ;
+    output_prefix = prefix + "." + chromosome_name + ".pos" + chunk_start + "-" + chunk_end ;
     for suffix in [".impute2_diplotype_ordering" ,".impute_info" ,".impute2_info_by_sample", ".impute2_summary", ".impute2_warnings"]:
         j.uses( output_prefix + suffix, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
@@ -261,12 +270,21 @@ def get_base_reference_files( prefix, chromosome_num ):
     files.append( prefix + ".sample")
     return files
 
-def get_erate_file_lfn( chromosome_num ):
+def get_duplicate_snp_lfn( prefix, chromosome_num ):
     """
-    Returns the lfn for the erate file based on the chromosome passed
+    Returns the lfn for the duplicate snp files
     """
 
-    return "chr" + str(chromosome_num) +  ".erate"
+    return  prefix + "." + "chr" + str(chromosome_num) +  ".duplicate.snp.site.out"
+
+
+def get_total_snp_exclude_lfn( prefix, chromosome_num ):
+    """
+    Returns the lfn for the total snps to be excluded
+    """
+
+    return  prefix + "." + "chr" + str(chromosome_num) +  ".snps.total.exclude"
+
 
 
 def get_rec_file_lfn( chromosome_num ):
