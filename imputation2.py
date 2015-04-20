@@ -74,7 +74,7 @@ def construct_extract_job( prefix, chromosome_num ):
     args = []
     args.append( prefix )
     args.append( chromosome_str )
-    args.append( chromosome_name )
+    args.append( "." )
 
     genotype_lfn = prefix + ".vcf.gz"
     j.uses(File( genotype_lfn ), link=Link.INPUT)
@@ -111,7 +111,7 @@ def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, s
     args = []
     args.append( prefix )
     args.append( chromosome_str )
-    args.append( chromosome_name )
+    args.append( "." )
     if addon_args is not None:
         args.append( addon_args )
 
@@ -159,7 +159,7 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     args = []
     args.append( prefix )
     args.append( chromosome_str )
-    args.append( chromosome_name )
+    args.append( "." )
     if addon_args is not None:
         args.append( addon_args )
 
@@ -208,7 +208,7 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     args.append( chromosome_str )
     args.append( chunk_start )
     args.append( chunk_end )
-    args.append( chromosome_name )
+    args.append( "." )
 
     for suffix in [ ".haps" ]:
         input_file = prefix + ".phase." + chromosome_name + suffix
