@@ -33,7 +33,7 @@ fi
 #./shapeit -check --input-vcf ./$3/$1.chr$2.recode.vcf.gz --input-ref ./1000GP_Phase3/1000GP_Phase3_chr$2.hap.gz ./1000GP_Phase3/1000GP_Phase3_chr$2.legend.gz ./1000GP_Phase3/1000GP_Phase3.sample --thread 1 --exclude-snp ./$3/$1.chr$2.duplicate.snp.site.out --output-log ./$3/$1.chr$2.alignments
 
 echo "Checking shapeit"
-shapeit -check --input-vcf ./${directory}/${study_name}.chr${chromosome_num}.recode.vcf.gz --input-ref ./1000GP_Phase3/1000GP_Phase3_chr${chrmosome_num}.hap.gz ./1000GP_Phase3/1000GP_Phase3_chr${chromosome_num}.legend.gz ./1000GP_Phase3/1000GP_Phase3.sample --thread 1 --exclude-snp ./${directory}/${study_name}.chr${chromosome_num}.duplicate.snp.site.out --output-log ./${directory}/${study_name}.chr${chromosome_num}.alignments
+shapeit -check --input-vcf ./${directory}/${study_name}.chr${chromosome_num}.recode.vcf.gz --input-ref ./${directory}/1000GP_Phase3_chr${chromosome_num}.hap.gz ./${directory}/1000GP_Phase3_chr${chromosome_num}.legend.gz ./${directory}/1000GP_Phase3.sample --thread 1 --exclude-snp ./${directory}/${study_name}.chr${chromosome_num}.duplicate.snp.site.out --output-log ./${directory}/${study_name}.chr${chromosome_num}.alignments
 
 strand_exclude=./${directory}/${study_name}.chr${chromosome_num}.alignments.snp.strand.exclude
 
