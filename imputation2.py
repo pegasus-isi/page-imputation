@@ -103,7 +103,7 @@ def construct_test_shapeit_job( prefix, chromosome_num, reference_file_prefix, s
     Input File: mec-2010-11-19.map
     Output Files: mec-2010-11-19build37.map mec-2010-11-19.rsIDs.txt
     """
-    j = Job(name="test-shapeit")
+    j = Job(name="test_shapeit")
 
     chromosome_str = str(chromosome_num)
     chromosome_name =  "chr" + chromosome_str
@@ -151,7 +151,7 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     Input File: mec-2010-11-19.map
     Output Files: mec-2010-11-19build37.map mec-2010-11-19.rsIDs.txt
     """
-    j = Job(name="phase-shapeit")
+    j = Job(name="phase_shapeit")
 
     chromosome_str = str(chromosome_num)
     chromosome_name =  "chr" + chromosome_str
@@ -211,7 +211,7 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     args.append( chromosome_name )
 
     for suffix in [ ".haps" ]:
-        input_file = prefix + "." + chromosome_name + suffix
+        input_file = prefix + ".phase." + chromosome_name + suffix
         j.uses(File( input_file ), link=Link.INPUT)
 
     #add base reference files
@@ -234,24 +234,6 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
 
     return j
 
-
-def getLFNAndAddToDAX( dax, file ):
-    """
-    Helper method that derives the LFN from the basename of the file and also adds
-    to the DAX to be tracked
-    """
-
-    lfn = os.path.basename( file );
-    #if the file specified is an actual file
-    if os.path.isfile( file ):
-        file = os.path.abspath( file )
-        # Add input file to the DAX-level replica catalog
-        f = File( lfn )
-        f.addPFN( PFN("file://" + file, "local") )
-        dax.addFile( f )
-
-
-    return lfn
 
 
 def get_base_reference_files( prefix, chromosome_num ):
