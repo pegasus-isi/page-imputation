@@ -1,8 +1,6 @@
 #!/bin/bash
 #$ -cwd
 #$ -j y
-#$ -M zhou@dls.rutgers.edu
-#$ -m ae
 
 CDIR='pwd'
 
@@ -47,15 +45,9 @@ size=${!string}
 # 1) vcf generated
 bash extract_chromosome.sh $study $num $node
 
-# 2) prepare list of snps to exclude
-bash test-shapeit.sh $study $num $node
 
-# 3) shapeit step 1 -- actual run -- alignment run
-
-
-# 4) shapeit step 2 -- actual run
+# 2) run shapeit phase
 bash phase-shapeit.sh $study $num $node
-
 
 # 5) Impute2
 i=1
