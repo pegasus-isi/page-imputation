@@ -31,8 +31,9 @@ directory=$5
 ROOT_DIR=./
 # pegasus stages all files in the directory
 # where the job executes. DATA_DIR is set to $directory
+# Similary for RESULTS_DIR
 DATA_DIR=./${directory}/
-RESULTS_DIR=./${directory}/RESULTS/
+RESULTS_DIR=./${directory}
 
 IMPUTE2_EXEC=impute2
 
