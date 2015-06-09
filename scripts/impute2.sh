@@ -29,7 +29,9 @@ CHUNK_END=`printf "%.0f" $4`
 directory=$5
 
 ROOT_DIR=./
-DATA_DIR=./1000GP_Phase3/
+# pegasus stages all files in the directory
+# where the job executes. DATA_DIR is set to $directory
+DATA_DIR=./${directory}/
 RESULTS_DIR=./${directory}/RESULTS/
 
 IMPUTE2_EXEC=impute2
