@@ -41,18 +41,18 @@ def getDAX( genotype_file,
         extract_job = construct_extract_job( prefix, chromosome )
         dax.addJob( extract_job )
 
-        test_shapeit_job = construct_test_shapeit_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, addon_test_shapeit_args )
-        dax.addJob( test_shapeit_job )
-        dax.depends( parent=extract_job,child=test_shapeit_job )
+        #test_shapeit_job = construct_test_shapeit_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, addon_test_shapeit_args )
+        #dax.addJob( test_shapeit_job )
+        #dax.depends( parent=extract_job,child=test_shapeit_job )
 
         phase_shapeit_job = construct_phase_shapeit_job( prefix, chromosome, reference_file_prefix , snps_to_exclude, addon_phase_shapeit_args)
         dax.addJob( phase_shapeit_job )
-        dax.depends( parent=test_shapeit_job,child=phase_shapeit_job )
+        dax.depends( parent=extract_job,child=phase_shapeit_job )
 
         impute_job = construct_imputation_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, "20.4e6", "20.5e6" )
         dax.addJob( impute_job )
         dax.depends( parent=phase_shapeit_job, child=impute_job )
-        dax.depends( parent=test_shapeit_job, child=impute_job )
+        #dax.depends( parent=test_shapeit_job, child=impute_job )
 
     # notifcations on state changes for the dax
     dax.invoke("all", pegasus_share_dir + "/notification/email")
@@ -167,8 +167,11 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
         input_file = prefix + "." + chromosome_name + suffix
         j.uses( input_file , link=Link.INPUT)
 
-    total_snps_excluded_file = get_total_snp_exclude_lfn( prefix, chromosome_num )
-    j.uses( total_snps_excluded_file, link=Link.INPUT)
+    duplicate_snp_file = get_duplicate_snp_lfn( prefix, chromosome_num );
+    j.uses( File(duplicate_snp_file), link=Link.INPUT)
+    # was created by test_shapeit job, we use duplicate snp file as input instead
+    #total_snps_excluded_file = get_total_snp_exclude_lfn( prefix, chromosome_num )
+    #j.uses( total_snps_excluded_file, link=Link.INPUT)
 
     #add base reference files
     base_reference_files = get_base_reference_files( reference_file_prefix, chromosome_num )
