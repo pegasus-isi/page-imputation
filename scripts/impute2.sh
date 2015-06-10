@@ -24,49 +24,49 @@ set -x
 if [ $# -eq 5 ];then
 	echo "impute2.sh: with start and end positions indicated, it will not do internal chunking "
 
-study_name=$1
-CHR=$2
-CHUNK_START=`printf "%.0f" $3`
-CHUNK_END=`printf "%.0f" $4`
-directory=$5
+	study_name=$1
+	CHR=$2
+	CHUNK_START=`printf "%.0f" $3`
+	CHUNK_END=`printf "%.0f" $4`
+	directory=$5
 
-ROOT_DIR=./
-# pegasus stages all files in the directory
-# where the job executes. DATA_DIR is set to $directory
-# Similary for RESULTS_DIR
-DATA_DIR=./${directory}/
-RESULTS_DIR=./${directory}
+	ROOT_DIR=./
+        # pegasus stages all files in the directory
+        # where the job executes. DATA_DIR is set to $directory
+        # Similary for RESULTS_DIR
+	DATA_DIR=./${directory}/
+	RESULTS_DIR=./${directory}
+	
+	IMPUTE2_EXEC=impute2
 
-IMPUTE2_EXEC=impute2
+	NE=20000
 
-NE=20000
+	GENMAP_FILE=${DATA_DIR}genetic_map_chr${CHR}_combined_b37.txt
+	HAPS_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.hap.gz
+	LEGEND_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.legend.gz
+	
+	GWAS_HAPS_FILE=./${directory}/${study_name}.phase.chr${CHR}.haps
+	
+	OUTPUT_FILE=${RESULTS_DIR}${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
 
-GENMAP_FILE=${DATA_DIR}genetic_map_chr${CHR}_combined_b37.txt
-HAPS_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.hap.gz
-LEGEND_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.legend.gz
+	if [ ! -d "$RESULTS_DIR" ]; then
+	    mkdir $RESULTS_DIR
+	fi
 
-GWAS_HAPS_FILE=./${directory}/${study_name}.phase.chr${CHR}.haps
+	echo "Running IMPUTE2 on $CHUNK_START $CHUNK_END "
 
-OUTPUT_FILE=${RESULTS_DIR}${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
+	$IMPUTE2_EXEC \
+	    -m $GENMAP_FILE \
+	    -known_haps_g $GWAS_HAPS_FILE \
+	    -h $HAPS_FILE \
+	    -l $LEGEND_FILE \
+	    -Ne $NE \
+	    -int $CHUNK_START $CHUNK_END \
+	    -o $OUTPUT_FILE \
+	    -allow_large_regions \
+	    -seed 1961
 
-if [ ! -d "$RESULTS_DIR" ]; then
-	mkdir $RESULTS_DIR
-fi
-
-echo "Running IMPUTE2"
-
-$IMPUTE2_EXEC \
--m $GENMAP_FILE \
--known_haps_g $GWAS_HAPS_FILE \
--h $HAPS_FILE \
--l $LEGEND_FILE \
--Ne $NE \
--int $CHUNK_START $CHUNK_END \
--o $OUTPUT_FILE \
--allow_large_regions \
--seed 1961
-
-gzip $OUTPUT_FILE
+	gzip $OUTPUT_FILE
 
 fi
 
@@ -103,6 +103,7 @@ directory=$3
 
 string="chr$CHR"
 size=${!string}
+echo "DEBUG: size set to $size"
 ## stops here
 
 i=1
@@ -140,7 +141,7 @@ do
 	mkdir $RESULTS_DIR
 	fi
 
-	echo "Running IMPUTE2"
+	echo "Running IMPUTE2 on $CHUNK_START $CHUNK_END "
 
 	$IMPUTE2_EXEC \
 		-m $GENMAP_FILE \
@@ -153,8 +154,8 @@ do
 		-allow_large_regions \
 		-seed 1961
 
-		gzip $OUTPUT_FILE
-
+	gzip $OUTPUT_FILE
+		
 
 done
 
