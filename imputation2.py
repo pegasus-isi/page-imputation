@@ -14,6 +14,8 @@ DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG = False #whether intermediate files mak
 DEFAULT_REFERENCE_FILE_PREFIX           = "1000GP_Phase3"
 DEFAULT_EXCLUDE_SNPS_FILE_LFN           = "snps-to-exclude.txt"
 
+IMPUTE_DAGMAN_CATEGORY = "impute"
+
 pegasus_config = "pegasus-config --python-dump"
 config = subprocess.Popen(pegasus_config, stdout=subprocess.PIPE, shell=True).communicate()[0]
 exec config
@@ -263,6 +265,10 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
 
     # Finish job
     j.addArguments(*args)
+
+    #associate a DAGMAN category for throttling purposes
+    j.addProfile( Profile("dagman", "CATEGORY", IMPUTE_DAGMAN_CATEGORY ))
+
 
     return j
 
