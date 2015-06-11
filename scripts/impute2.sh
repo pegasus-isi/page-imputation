@@ -5,6 +5,10 @@
 # ensure that the script fails on error
 set -e
 
+# set pipefial to ensure that we don't succeed when we use the tee command
+set -o pipefail 
+
+
 # set -x to see on terminal what commands are executed
 # only for debugging
 set -x
@@ -122,7 +126,7 @@ do
 # pegasus stages all files in the directory
 # where the job executes. DATA_DIR is set to $directory
 # Similary for RESULTS_DIR
-	DATA_DIR=./${directory}/
+	DATA_DIR=./${directory}
 	RESULTS_DIR=./${directory}
 
 	IMPUTE2_EXEC=impute2
@@ -142,6 +146,10 @@ do
 	fi
 
 	echo "Running IMPUTE2 on $CHUNK_START $CHUNK_END "
+	STDOUT_FILE=$(mktemp ./impute2.stdout.XXXXXX)
+	
+	#imputation code can fail if no valid snp are found.
+	# handle that
 
 	$IMPUTE2_EXEC \
 		-m $GENMAP_FILE \
@@ -152,8 +160,24 @@ do
 		-int $CHUNK_START $CHUNK_END \
 		-o $OUTPUT_FILE \
 		-allow_large_regions \
-		-seed 1961
+		-seed 1961 \
+	        | tee $STDOUT_FILE
 
+	EC=$?
+	echo "Impute2 exited with status $EC"
+
+	if [ $EC -ne 0 ]; then
+	    echo "impute code failed with status $EC"
+	    
+        fi
+	
+	if [ $(grep -c -v "There are no SNPs in the imputation interval, so there is nothing for IMPUTE2 to analyze; the program will quit now." $STDOUT_FILE) -gt 0 ]; then
+	    echo "Creating an empty output file $OUTPUT_FILE"
+	    touch $OUTPUT_FILE
+	else
+	    #trigger failure in the script		
+	    exit 1
+	fi
 	gzip $OUTPUT_FILE
 		
 
