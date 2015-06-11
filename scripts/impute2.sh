@@ -38,20 +38,20 @@ if [ $# -eq 5 ];then
         # pegasus stages all files in the directory
         # where the job executes. DATA_DIR is set to $directory
         # Similary for RESULTS_DIR
-	DATA_DIR=./${directory}/
+	DATA_DIR=./${directory}
 	RESULTS_DIR=./${directory}
 	
 	IMPUTE2_EXEC=impute2
 
 	NE=20000
 
-	GENMAP_FILE=${DATA_DIR}genetic_map_chr${CHR}_combined_b37.txt
-	HAPS_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.hap.gz
-	LEGEND_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.legend.gz
+	GENMAP_FILE=${DATA_DIR}/genetic_map_chr${CHR}_combined_b37.txt
+	HAPS_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.hap.gz
+	LEGEND_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.legend.gz
 	
 	GWAS_HAPS_FILE=./${directory}/${study_name}.phase.chr${CHR}.haps
 	
-	OUTPUT_FILE=${RESULTS_DIR}${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
+	OUTPUT_FILE=${RESULTS_DIR}/${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
 
 	if [ ! -d "$RESULTS_DIR" ]; then
 	    mkdir $RESULTS_DIR
@@ -133,13 +133,13 @@ do
 
 	NE=20000
 
-	GENMAP_FILE=${DATA_DIR}genetic_map_chr${CHR}_combined_b37.txt
-	HAPS_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.hap.gz
-	LEGEND_FILE=${DATA_DIR}1000GP_Phase3_chr${CHR}.legend.gz
+	GENMAP_FILE=${DATA_DIR}/genetic_map_chr${CHR}_combined_b37.txt
+	HAPS_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.hap.gz
+	LEGEND_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.legend.gz
 
 	GWAS_HAPS_FILE=./${directory}/${study_name}.phase.chr${CHR}.haps
 
-	OUTPUT_FILE=${RESULTS_DIR}${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
+	OUTPUT_FILE=${RESULTS_DIR}/${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
 
 	if [ ! -d "$RESULTS_DIR" ]; then
 	mkdir $RESULTS_DIR
@@ -179,7 +179,7 @@ do
 	    exit 1
 	fi
 	gzip $OUTPUT_FILE
-		
+	rm $STDOUT_FILE
 
 done
 
