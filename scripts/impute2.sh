@@ -25,53 +25,110 @@ set -x
 #    exit 1
 #fi 
 
+function execute_impute_job
+{
+    # purpose: executes an impute job
+    # paramtr: $chr_number  (IN): the chromosome number
+    #          $chunk_start (IN): the name of the job to execute
+    #          $chunk_end   (IN): the state in which the job is
+    #          $directory   (IN): the directory where to execute the impute job
+    #   
+    local chr_number=$1
+    local chunk_start=$2
+    local chunk_end=$3
+    local directory=$4
+
+    if [ "X${chr_number}" = "X" ];then
+	echo "ERROR: chromsome number not specified for imputation step" 1>&2
+	exit 1
+    fi
+
+
+    if [ "X${chunk_start}" = "X" ];then
+	echo "ERROR: chunk start not specified for imputation step" 1>&2
+	exit 1
+    fi
+
+    if [ "X${chunk_end}" = "X" ];then
+	echo "ERROR: chunk end not specified for imputation step" 1>&2
+	exit 1
+    fi
+
+    if [ "X${directory}" = "X" ];then
+	echo "ERROR: directory  not specified for imputation step" 1>&2
+	exit 1
+    fi
+    
+    ROOT_DIR=./
+    # pegasus stages all files in the directory
+    # where the job executes. DATA_DIR is set to $directory
+    # Similary for RESULTS_DIR
+    DATA_DIR=./${directory}
+    RESULTS_DIR=./${directory}
+
+    IMPUTE2_EXEC=impute2
+    
+    NE=20000
+
+    GENMAP_FILE=${DATA_DIR}/genetic_map_chr${chr_number}_combined_b37.txt
+    HAPS_FILE=${DATA_DIR}/1000GP_Phase3_chr${chr_number}.hap.gz
+    LEGEND_FILE=${DATA_DIR}/1000GP_Phase3_chr${chr_number}.legend.gz
+    
+    GWAS_HAPS_FILE=./${directory}/${STUDY_NAME}.phase.chr${chr_number}.haps
+
+    OUTPUT_FILE=${RESULTS_DIR}/${STUDY_NAME}.chr${chr_number}.pos${chunk_start}-${chunk_end}.impute2
+
+    if [ ! -d "$RESULTS_DIR" ]; then
+	mkdir $RESULTS_DIR
+	fi
+
+    echo "Running IMPUTE2 on $chunk_start $chunk_end "
+    STDOUT_FILE=$(mktemp ./impute2.stdout.XXXXXX)
+    
+    #imputation code can fail if no valid snp are found.
+    # handle that
+
+    $IMPUTE2_EXEC \
+	-m $GENMAP_FILE \
+	-known_haps_g $GWAS_HAPS_FILE \
+	-h $HAPS_FILE \
+	-l $LEGEND_FILE \
+	-Ne $NE \
+	-int $chunk_start $chunk_end \
+	-o $OUTPUT_FILE \
+	-allow_large_regions \
+	-seed 1961 \
+	| tee $STDOUT_FILE
+
+    EC=$?
+    echo "Impute2 exited with status $EC for chunk intervale $chunk_start $chunk_end"
+	
+    
+    if [ $(grep -c -v "There are no SNPs in the imputation interval, so there is nothing for IMPUTE2 to analyze; the program will quit now." $STDOUT_FILE) -gt 0 ]; then
+	echo "Creating an empty output file $OUTPUT_FILE"
+	touch $OUTPUT_FILE
+    else
+	
+    #trigger failure in the script		
+    exit 1
+    fi
+    gzip $OUTPUT_FILE
+    #rm $STDOUT_FILE
+    
+}
+
+
 if [ $# -eq 5 ];then
 	echo "impute2.sh: with start and end positions indicated, it will not do internal chunking "
 
-	study_name=$1
+	STUDY_NAME=$1
 	CHR=$2
 	CHUNK_START=`printf "%.0f" $3`
 	CHUNK_END=`printf "%.0f" $4`
-	directory=$5
+	DIRECTORY=$5
 
-	ROOT_DIR=./
-        # pegasus stages all files in the directory
-        # where the job executes. DATA_DIR is set to $directory
-        # Similary for RESULTS_DIR
-	DATA_DIR=./${directory}
-	RESULTS_DIR=./${directory}
+	execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
 	
-	IMPUTE2_EXEC=impute2
-
-	NE=20000
-
-	GENMAP_FILE=${DATA_DIR}/genetic_map_chr${CHR}_combined_b37.txt
-	HAPS_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.hap.gz
-	LEGEND_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.legend.gz
-	
-	GWAS_HAPS_FILE=./${directory}/${study_name}.phase.chr${CHR}.haps
-	
-	OUTPUT_FILE=${RESULTS_DIR}/${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
-
-	if [ ! -d "$RESULTS_DIR" ]; then
-	    mkdir $RESULTS_DIR
-	fi
-
-	echo "Running IMPUTE2 on $CHUNK_START $CHUNK_END "
-
-	$IMPUTE2_EXEC \
-	    -m $GENMAP_FILE \
-	    -known_haps_g $GWAS_HAPS_FILE \
-	    -h $HAPS_FILE \
-	    -l $LEGEND_FILE \
-	    -Ne $NE \
-	    -int $CHUNK_START $CHUNK_END \
-	    -o $OUTPUT_FILE \
-	    -allow_large_regions \
-	    -seed 1961
-
-	gzip $OUTPUT_FILE
-
 fi
 
 if [ $# -eq 3 ];then
@@ -100,9 +157,9 @@ chr20=63025520
 chr21=48129895
 chr22=51304566
 
-study_name=$1
+STUDY_NAME=$1
 CHR=$2
-directory=$3
+DIRECTORY=$3
 
 
 string="chr$CHR"
@@ -122,64 +179,7 @@ do
 	CHUNK_START=$i
 	CHUNK_END=$j
 	
-	ROOT_DIR=./
-# pegasus stages all files in the directory
-# where the job executes. DATA_DIR is set to $directory
-# Similary for RESULTS_DIR
-	DATA_DIR=./${directory}
-	RESULTS_DIR=./${directory}
-
-	IMPUTE2_EXEC=impute2
-
-	NE=20000
-
-	GENMAP_FILE=${DATA_DIR}/genetic_map_chr${CHR}_combined_b37.txt
-	HAPS_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.hap.gz
-	LEGEND_FILE=${DATA_DIR}/1000GP_Phase3_chr${CHR}.legend.gz
-
-	GWAS_HAPS_FILE=./${directory}/${study_name}.phase.chr${CHR}.haps
-
-	OUTPUT_FILE=${RESULTS_DIR}/${study_name}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
-
-	if [ ! -d "$RESULTS_DIR" ]; then
-	mkdir $RESULTS_DIR
-	fi
-
-	echo "Running IMPUTE2 on $CHUNK_START $CHUNK_END "
-	STDOUT_FILE=$(mktemp ./impute2.stdout.XXXXXX)
-	
-	#imputation code can fail if no valid snp are found.
-	# handle that
-
-	$IMPUTE2_EXEC \
-		-m $GENMAP_FILE \
-		-known_haps_g $GWAS_HAPS_FILE \
-		-h $HAPS_FILE \
-		-l $LEGEND_FILE \
-		-Ne $NE \
-		-int $CHUNK_START $CHUNK_END \
-		-o $OUTPUT_FILE \
-		-allow_large_regions \
-		-seed 1961 \
-	        | tee $STDOUT_FILE
-
-	EC=$?
-	echo "Impute2 exited with status $EC"
-
-	if [ $EC -ne 0 ]; then
-	    echo "impute code failed with status $EC"
-	    
-        fi
-	
-	if [ $(grep -c -v "There are no SNPs in the imputation interval, so there is nothing for IMPUTE2 to analyze; the program will quit now." $STDOUT_FILE) -gt 0 ]; then
-	    echo "Creating an empty output file $OUTPUT_FILE"
-	    touch $OUTPUT_FILE
-	else
-	    #trigger failure in the script		
-	    exit 1
-	fi
-	gzip $OUTPUT_FILE
-	rm $STDOUT_FILE
+	execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
 
 done
 
