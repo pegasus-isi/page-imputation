@@ -123,9 +123,9 @@ if [ $# -eq 5 ];then
 
 	STUDY_NAME=$1
 	CHR=$2
-	CHUNK_START=`printf "%.0f" $3`
-	CHUNK_END=`printf "%.0f" $4`
-	DIRECTORY=$5
+	DIRECTORY=$3
+	CHUNK_START=`printf "%.0f" $4`
+	CHUNK_END=`printf "%.0f" $5`
 
 	execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
 	

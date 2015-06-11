@@ -238,9 +238,9 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     args = []
     args.append( prefix )
     args.append( chromosome_str )
+    args.append( "." )
     args.append( chunk_start )
     args.append( chunk_end )
-    args.append( "." )
 
     for suffix in [ ".haps" ]:
         input_file = prefix + ".phase." + chromosome_name + suffix
