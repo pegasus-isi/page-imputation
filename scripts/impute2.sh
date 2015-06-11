@@ -77,13 +77,14 @@ function execute_impute_job
     GWAS_HAPS_FILE=./${directory}/${STUDY_NAME}.phase.chr${chr_number}.haps
 
     OUTPUT_FILE=${RESULTS_DIR}/${STUDY_NAME}.chr${chr_number}.pos${chunk_start}-${chunk_end}.impute2
+    SUMMARY_FILE=${OUTPUT_FILE}_summary
 
     if [ ! -d "$RESULTS_DIR" ]; then
 	mkdir $RESULTS_DIR
 	fi
 
     echo "Running IMPUTE2 on $chunk_start $chunk_end "
-    STDOUT_FILE=$(mktemp ./impute2.stdout.XXXXXX)
+    #STDOUT_FILE=$(mktemp ./impute2.stdout.XXXXXX)
     
     #imputation code can fail if no valid snp are found.
     # handle that
@@ -97,23 +98,22 @@ function execute_impute_job
 	-int $chunk_start $chunk_end \
 	-o $OUTPUT_FILE \
 	-allow_large_regions \
-	-seed 1961 \
-	| tee $STDOUT_FILE
+	-seed 1961 
 
     EC=$?
     echo "Impute2 exited with status $EC for chunk intervale $chunk_start $chunk_end"
 	
     
-    if [ $(grep -c -v "There are no SNPs in the imputation interval, so there is nothing for IMPUTE2 to analyze; the program will quit now." $STDOUT_FILE) -gt 0 ]; then
+    if [ $(grep -c -v "There are no SNPs in the imputation interval, so there is nothing for IMPUTE2 to analyze; the program will quit now." $SUMMARY_FILE) -gt 0 ]; then
 	echo "Creating an empty output file $OUTPUT_FILE"
 	touch $OUTPUT_FILE
     else
-	
-    #trigger failure in the script		
-    exit 1
+        #trigger failure in the script		
+	exit 1
     fi
+
     gzip $OUTPUT_FILE
-    #rm $STDOUT_FILE
+    
     
 }
 
