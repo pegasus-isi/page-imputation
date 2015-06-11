@@ -107,9 +107,6 @@ function execute_impute_job
     if [ $(grep -c -v "There are no SNPs in the imputation interval, so there is nothing for IMPUTE2 to analyze; the program will quit now." $SUMMARY_FILE) -gt 0 ]; then
 	echo "Creating an empty output file $OUTPUT_FILE"
 	touch $OUTPUT_FILE
-    else
-        #trigger failure in the script		
-	exit 1
     fi
 
     gzip $OUTPUT_FILE
