@@ -21,6 +21,31 @@ exec config
 
 from Pegasus.DAX3 import *
 
+chromosome_chunk_ends = [
+    248956422, #chr 1
+    242193529, #chr 2
+    198295559, #chr 3
+    190214555, #chr 4
+    181538259, #chr 5
+    170805979, #chr 6
+    159345973, #chr 7
+    145138636, #chr 8
+    138394717, #chr 9
+    133797422, #chr 10
+    135086622, #chr 11
+    133275309, #chr 12
+    114364328, #chr 13
+    107043718, #chr 14
+    101991189, #chr 15
+    90338345,  #chr 16
+    83257441,  #chr 17
+    80373285,  #chr 18
+    58617616,  #chr 19
+    63025520,  #chr 20
+    48129895,  #chr 21
+    51304566   #chr 22
+]
+
 def getDAX( genotype_file,
             chromosome_start,
             chromosome_end ,
@@ -41,18 +66,22 @@ def getDAX( genotype_file,
         extract_job = construct_extract_job( prefix, chromosome )
         dax.addJob( extract_job )
 
-        #test_shapeit_job = construct_test_shapeit_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, addon_test_shapeit_args )
-        #dax.addJob( test_shapeit_job )
-        #dax.depends( parent=extract_job,child=test_shapeit_job )
-
         phase_shapeit_job = construct_phase_shapeit_job( prefix, chromosome, reference_file_prefix , snps_to_exclude, addon_phase_shapeit_args)
         dax.addJob( phase_shapeit_job )
         dax.depends( parent=extract_job,child=phase_shapeit_job )
 
-        impute_job = construct_imputation_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, "20.4e6", "20.5e6" )
-        dax.addJob( impute_job )
-        dax.depends( parent=phase_shapeit_job, child=impute_job )
-        #dax.depends( parent=test_shapeit_job, child=impute_job )
+        #figure out the chunk start and end based on chunking end point for chromosome
+        chromosome_global_chunk_end =  chromosome_chunk_ends[ chromosome - 1 ]
+        for chunk_start in range( 1, chromosome_global_chunk_end, 5000000 ):
+            chunk_end = chunk_start + 4999999
+            if chunk_end >  chromosome_global_chunk_end:
+                chunk_end =  chromosome_global_chunk_end
+
+            print "Constructing impute job for chunk interval %s %s" %(chunk_start, chunk_end)
+            impute_job = construct_imputation_job( prefix, chromosome, reference_file_prefix, snps_to_exclude, chunk_start, chunk_end )
+            dax.addJob( impute_job )
+            dax.depends( parent=phase_shapeit_job, child=impute_job )
+
 
     # notifcations on state changes for the dax
     dax.invoke("all", pegasus_share_dir + "/notification/email")
@@ -201,8 +230,8 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     """
     j = Job(name="impute2")
 
-    chromosome_str = str(chromosome_num)
-    chromosome_name =  "chr" + chromosome_str
+    chromosome_str  = str(chromosome_num)
+    chromosome_name = "chr" + chromosome_str
 
     chunk_start = str( int(float(chunk_start)) )
     chunk_end   = str( int(float(chunk_end)) )
