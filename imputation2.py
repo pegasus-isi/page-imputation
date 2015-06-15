@@ -14,6 +14,8 @@ DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG = False #whether intermediate files mak
 DEFAULT_REFERENCE_FILE_PREFIX           = "1000GP_Phase3"
 DEFAULT_EXCLUDE_SNPS_FILE_LFN           = "snps-to-exclude.txt"
 
+# global constants
+DEFAULT_IMPUTATION_CHUNKING_INTERVAL  = 5000000 #based on biological reasons plus the specifics of the program).
 IMPUTE_DAGMAN_CATEGORY = "impute"
 
 pegasus_config = "pegasus-config --python-dump"
@@ -74,8 +76,8 @@ def getDAX( genotype_file,
 
         #figure out the chunk start and end based on chunking end point for chromosome
         chromosome_global_chunk_end =  chromosome_chunk_ends[ chromosome - 1 ]
-        for chunk_start in range( 1, chromosome_global_chunk_end, 5000000 ):
-            chunk_end = chunk_start + 4999999
+        for chunk_start in range( 1, chromosome_global_chunk_end, DEFAULT_IMPUTATION_CHUNKING_INTERVAL ):
+            chunk_end = chunk_start + DEFAULT_IMPUTATION_CHUNKING_INTERVAL - 1
             if chunk_end >  chromosome_global_chunk_end:
                 chunk_end =  chromosome_global_chunk_end
 
