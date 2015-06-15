@@ -1,0 +1,224 @@
+digraph dag {
+    ratio=fill
+    node [style=filled,color="#444444",fillcolor="#ffed6f"]
+    edge [arrowhead=normal,arrowsize=1.0]
+
+    "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_diplotype_ordering"]
+    "ID0000012" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "ID0000011" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "ID0000010" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_diplotype_ordering"]
+    "genetic_map_chr22_combined_b37.txt" [shape=rect,label="genetic_map_chr22_combined_b37.txt"]
+    "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.vcf.gz" [shape=rect,label="BioMe-AA_ILLUMINA.vcf.gz"]
+    "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_info"]
+    "ID0000013" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.chr22.recode.vcf.gz" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.recode.vcf.gz"]
+    "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_info"]
+    "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_warnings"]
+    "ID0000006" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" [shape=rect,label="BioMe-AA_ILLUMINA.phase.chr22.haps"]
+    "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_info"]
+    "ID0000007" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "ID0000008" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_info"]
+    "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_warnings"]
+    "ID0000004" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "ID0000005" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.duplicate.snp.site.out" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.duplicate.snp.site.out"]
+    "BioMe-AA_ILLUMINA.phase.chr22.ind.mm" [shape=rect,label="BioMe-AA_ILLUMINA.phase.chr22.ind.mm"]
+    "ID0000001" [shape=ellipse,fillcolor="#d95f02",label="extract_chromosome"]
+    "ID0000002" [shape=ellipse,fillcolor="#7570b3",label="phase_shapeit"]
+    "ID0000003" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_info"]
+    "BioMe-AA_ILLUMINA.phase.chr22.log" [shape=rect,label="BioMe-AA_ILLUMINA.phase.chr22.log"]
+    "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_summary"]
+    "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_summary"]
+    "BioMe-AA_ILLUMINA.phase.chr22.snp.mm" [shape=rect,label="BioMe-AA_ILLUMINA.phase.chr22.snp.mm"]
+    "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_diplotype_ordering" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_diplotype_ordering"]
+    "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_info"]
+    "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_info_by_sample" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_info_by_sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_info"]
+    "1000GP_Phase3.sample" [shape=rect,label="1000GP_Phase3.sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_info"]
+    "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_warnings"]
+    "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_info"]
+    "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_info"]
+    "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_warnings" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_warnings"]
+    "ID0000009" [shape=ellipse,fillcolor="#1b9e77",label="impute2"]
+    "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_summary"]
+    "1000GP_Phase3_chr22.hap.gz" [shape=rect,label="1000GP_Phase3_chr22.hap.gz"]
+    "BioMe-AA_ILLUMINA.chr22.recode.vcf.gz.tbi" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.recode.vcf.gz.tbi"]
+    "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_info" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_info"]
+    "1000GP_Phase3_chr22.legend.gz" [shape=rect,label="1000GP_Phase3_chr22.legend.gz"]
+    "BioMe-AA_ILLUMINA.phase.chr22.sample" [shape=rect,label="BioMe-AA_ILLUMINA.phase.chr22.sample"]
+    "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_summary" [shape=rect,label="BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_summary"]
+    "ID0000012" -> "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_summary"
+    "ID0000012" -> "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_diplotype_ordering"
+    "ID0000012" -> "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_warnings"
+    "ID0000012" -> "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_info"
+    "ID0000012" -> "BioMe-AA_ILLUMINA.chr22.pos45000001-50000000.impute2_info_by_sample"
+    "ID0000011" -> "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_summary"
+    "ID0000011" -> "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_info_by_sample"
+    "ID0000011" -> "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_info"
+    "ID0000011" -> "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_warnings"
+    "ID0000011" -> "BioMe-AA_ILLUMINA.chr22.pos40000001-45000000.impute2_diplotype_ordering"
+    "ID0000010" -> "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_info"
+    "ID0000010" -> "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_summary"
+    "ID0000010" -> "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_info_by_sample"
+    "ID0000010" -> "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_warnings"
+    "ID0000010" -> "BioMe-AA_ILLUMINA.chr22.pos35000001-40000000.impute2_diplotype_ordering"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000002"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000003"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000004"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000005"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000006"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000007"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000008"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000009"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000010"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000011"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000012"
+    "genetic_map_chr22_combined_b37.txt" -> "ID0000013"
+    "BioMe-AA_ILLUMINA.vcf.gz" -> "ID0000001"
+    "ID0000013" -> "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_info_by_sample"
+    "ID0000013" -> "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_summary"
+    "ID0000013" -> "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_warnings"
+    "ID0000013" -> "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_diplotype_ordering"
+    "ID0000013" -> "BioMe-AA_ILLUMINA.chr22.pos50000001-51304566.impute2_info"
+    "BioMe-AA_ILLUMINA.chr22.recode.vcf.gz" -> "ID0000002"
+    "ID0000006" -> "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_info"
+    "ID0000006" -> "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_info_by_sample"
+    "ID0000006" -> "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_summary"
+    "ID0000006" -> "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_warnings"
+    "ID0000006" -> "BioMe-AA_ILLUMINA.chr22.pos15000001-20000000.impute2_diplotype_ordering"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000003"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000004"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000005"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000006"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000007"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000008"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000009"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000010"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000011"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000012"
+    "BioMe-AA_ILLUMINA.phase.chr22.haps" -> "ID0000013"
+    "ID0000007" -> "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_summary"
+    "ID0000007" -> "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_info_by_sample"
+    "ID0000007" -> "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_info"
+    "ID0000007" -> "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_warnings"
+    "ID0000007" -> "BioMe-AA_ILLUMINA.chr22.pos20000001-25000000.impute2_diplotype_ordering"
+    "ID0000008" -> "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_warnings"
+    "ID0000008" -> "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_info"
+    "ID0000008" -> "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_diplotype_ordering"
+    "ID0000008" -> "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_summary"
+    "ID0000008" -> "BioMe-AA_ILLUMINA.chr22.pos25000001-30000000.impute2_info_by_sample"
+    "ID0000004" -> "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_diplotype_ordering"
+    "ID0000004" -> "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_info"
+    "ID0000004" -> "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_info_by_sample"
+    "ID0000004" -> "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_warnings"
+    "ID0000004" -> "BioMe-AA_ILLUMINA.chr22.pos5000001-10000000.impute2_summary"
+    "ID0000005" -> "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_info"
+    "ID0000005" -> "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_info_by_sample"
+    "ID0000005" -> "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_warnings"
+    "ID0000005" -> "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_diplotype_ordering"
+    "ID0000005" -> "BioMe-AA_ILLUMINA.chr22.pos10000001-15000000.impute2_summary"
+    "BioMe-AA_ILLUMINA.chr22.duplicate.snp.site.out" -> "ID0000002"
+    "ID0000001" -> "BioMe-AA_ILLUMINA.chr22.recode.vcf.gz"
+    "ID0000001" -> "BioMe-AA_ILLUMINA.chr22.recode.vcf.gz.tbi"
+    "ID0000001" -> "BioMe-AA_ILLUMINA.chr22.duplicate.snp.site.out"
+    "ID0000001" -> "ID0000002"
+    "ID0000002" -> "BioMe-AA_ILLUMINA.phase.chr22.ind.mm"
+    "ID0000002" -> "BioMe-AA_ILLUMINA.phase.chr22.sample"
+    "ID0000002" -> "BioMe-AA_ILLUMINA.phase.chr22.log"
+    "ID0000002" -> "BioMe-AA_ILLUMINA.phase.chr22.snp.mm"
+    "ID0000002" -> "BioMe-AA_ILLUMINA.phase.chr22.haps"
+    "ID0000002" -> "ID0000003"
+    "ID0000002" -> "ID0000004"
+    "ID0000002" -> "ID0000005"
+    "ID0000002" -> "ID0000006"
+    "ID0000002" -> "ID0000007"
+    "ID0000002" -> "ID0000008"
+    "ID0000002" -> "ID0000009"
+    "ID0000002" -> "ID0000010"
+    "ID0000002" -> "ID0000011"
+    "ID0000002" -> "ID0000012"
+    "ID0000002" -> "ID0000013"
+    "ID0000003" -> "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_summary"
+    "ID0000003" -> "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_info"
+    "ID0000003" -> "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_warnings"
+    "ID0000003" -> "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_diplotype_ordering"
+    "ID0000003" -> "BioMe-AA_ILLUMINA.chr22.pos1-5000000.impute2_info_by_sample"
+    "1000GP_Phase3.sample" -> "ID0000002"
+    "1000GP_Phase3.sample" -> "ID0000003"
+    "1000GP_Phase3.sample" -> "ID0000004"
+    "1000GP_Phase3.sample" -> "ID0000005"
+    "1000GP_Phase3.sample" -> "ID0000006"
+    "1000GP_Phase3.sample" -> "ID0000007"
+    "1000GP_Phase3.sample" -> "ID0000008"
+    "1000GP_Phase3.sample" -> "ID0000009"
+    "1000GP_Phase3.sample" -> "ID0000010"
+    "1000GP_Phase3.sample" -> "ID0000011"
+    "1000GP_Phase3.sample" -> "ID0000012"
+    "1000GP_Phase3.sample" -> "ID0000013"
+    "ID0000009" -> "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_summary"
+    "ID0000009" -> "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_diplotype_ordering"
+    "ID0000009" -> "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_warnings"
+    "ID0000009" -> "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_info"
+    "ID0000009" -> "BioMe-AA_ILLUMINA.chr22.pos30000001-35000000.impute2_info_by_sample"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000002"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000003"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000004"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000005"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000006"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000007"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000008"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000009"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000010"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000011"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000012"
+    "1000GP_Phase3_chr22.hap.gz" -> "ID0000013"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000002"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000003"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000004"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000005"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000006"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000007"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000008"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000009"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000010"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000011"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000012"
+    "1000GP_Phase3_chr22.legend.gz" -> "ID0000013"
+}
