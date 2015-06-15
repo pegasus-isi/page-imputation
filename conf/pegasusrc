@@ -10,4 +10,5 @@ pegasus.transfer.links = true
 
 pegasus.register=false
 
-dagman.impute.MAXJOBS 1
+dagman.impute2.MAXJOBS 1
+dagman.shapeit.MAXJOBS 1

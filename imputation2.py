@@ -16,7 +16,8 @@ DEFAULT_EXCLUDE_SNPS_FILE_LFN           = "snps-to-exclude.txt"
 
 # global constants
 DEFAULT_IMPUTATION_CHUNKING_INTERVAL  = 5000000 #based on biological reasons plus the specifics of the program).
-IMPUTE_DAGMAN_CATEGORY = "impute"
+IMPUTE_DAGMAN_CATEGORY = "impute2"
+PHASE_SHAPEIT_DAGMAN_CATEGORY = "shapeit"
 
 pegasus_config = "pegasus-config --python-dump"
 config = subprocess.Popen(pegasus_config, stdout=subprocess.PIPE, shell=True).communicate()[0]
@@ -218,8 +219,8 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
         output_file = prefix + ".phase." + chromosome_name + suffix
         j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
-    # Include dependant executable
-    #j.uses(Executable("R"), link=Link.INPUT)
+    #associate a DAGMAN category for throttling purposes
+    j.addProfile( Profile("dagman", "CATEGORY", PHASE_SHAPEIT_DAGMAN_CATEGORY ))
 
     # Finish job
     j.addArguments(*args)
