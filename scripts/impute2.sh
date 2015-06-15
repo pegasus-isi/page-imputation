@@ -78,6 +78,9 @@ function execute_impute_job
 
     OUTPUT_FILE=${RESULTS_DIR}/${STUDY_NAME}.chr${chr_number}.pos${chunk_start}-${chunk_end}.impute2
     SUMMARY_FILE=${OUTPUT_FILE}_summary
+    DIPLOTYE_FILE=${OUTPUT_FILE}_diplotype_ordering
+    INFO_FILE=${OUTPUT_FILE}_info
+    INFO_FILE_BY_SAMPLE=${OUTPUT_FILE}_info_by_sample
 
     if [ ! -d "$RESULTS_DIR" ]; then
 	mkdir $RESULTS_DIR
@@ -105,8 +108,12 @@ function execute_impute_job
 	
     
     if [ $(grep -c -v "There are no SNPs in the imputation interval, so there is nothing for IMPUTE2 to analyze; the program will quit now." $SUMMARY_FILE) -gt 0 ]; then
-	echo "Creating an empty output file $OUTPUT_FILE"
+	echo "Creating an empty output files with prefix $OUTPUT_FILE"
 	touch $OUTPUT_FILE
+	touch $DIPLOTYE_FILE
+	touch $INFO_FILE
+	touch $INFO_FILE_BY_SAMPLE
+
     fi
 
     gzip $OUTPUT_FILE
