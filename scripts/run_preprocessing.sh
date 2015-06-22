@@ -31,7 +31,7 @@ echo "convert into VCF"
 mkdir $study-${num}
 mv ${study}-${num}-result2-final-updated* $study-${num}/
 cd $study-${num}
-plink-1.9 --bfile ${study}-${num}-result2-final-updated --recode vcf --out $file
-gzip $file.vcf
+plink-1.9 --bfile ${study}-${num}-result2-final-updated --recode vcf --out $study.$num
+gzip $study.$num.vcf
 cd ..
 

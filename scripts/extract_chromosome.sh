@@ -37,7 +37,7 @@ mkdir -p $directory
 recode_vcf=./${directory}/${study_name}.chr${chromosome_num}.recode.vcf
 
 echo "Running vcftools"
-vcftools --chr $2 --gzvcf ${study_name}.vcf.gz --max-alleles 2 --remove-indels --recode --out ./${directory}/${study_name}.chr${chromosome_num}
+vcftools --chr $2 --gzvcf ${study_name}.${chromosome_num}.vcf.gz --max-alleles 2 --remove-indels --recode --out ./${directory}/${study_name}.chr${chromosome_num}
 
 #vcftools exits with a 0 exitcode even when output file is not created
 if [ ! -e $recode_vcf ];then
