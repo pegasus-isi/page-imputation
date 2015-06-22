@@ -5,7 +5,7 @@ CDIR='pwd'
 
 file="BioMe-AA_ILLUMINA"
 num=22
-study="testing"
+study="BioMe-AA_ILLUMINA"
 node="chr22"
 
 echo "SNP names update"
