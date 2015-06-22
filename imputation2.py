@@ -101,6 +101,17 @@ def construct_preprocessing_job( prefix, chromosome_num ):
     """
     Takes in a vcf file and does some preprocessing per chromosome that is passed to
     extract_chromosome job.
+    run_preprocessing.sh: this one will call all other scripts
+    snp_names_update.sh: this script will update the SNP names; it calls LiftRsNumber.py
+    more-alleles-2015-05-25.R: this script will rewrite plink *.bim file when a SNP is monomorphic by comparing to 1KGP
+    liftover_to_37.sh: this script will lift the current build (build 38) to build 37
+    HRC-check-bim.pl: this script will do HRC preparation checking; it will generate a script Run-plink.sh, which will run and do the HRC checking
+
+    To run these scripts, several programs and files are necessary:
+    Programs:
+    Plink 1.9 (https://www.cog-genomics.org/plink2)
+    liftOver (http://genome.sph.umich.edu/wiki/LiftOver#Binary_liftOver_tool)
+
     """
     j = Job(name="preprocessing")
 
