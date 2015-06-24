@@ -17,7 +17,7 @@ study=$2
 ## 1. Process a list from dbSNP
 ## Different from the old version, LiftRsNumber.py is used in this version
 awk '{print $2}' $file.bim | grep rs | awk -F"rs" '{print $2}' > old_rs_dbSNP.in
-python LiftRsNumber.py old_rs_dbSNP.in > lifted_rs_dbSNP.out
+LiftRsNumber.py old_rs_dbSNP.in > lifted_rs_dbSNP.out
 awk '{print "rs"$2}' lifted_rs_dbSNP.out > temp1.out
 awk '{print "rs"$0}' old_rs_dbSNP.in > temp2.out
 paste -d'\t' temp2.out temp1.out > temp3.out
