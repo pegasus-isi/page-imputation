@@ -6,6 +6,9 @@ CDIR='pwd'
 ## Date:	June 11, 2015
 ## Created by: 	Lisheng Zhou
 
+# make the script fail on errors
+set -e
+
 ## Update SNP names to current rsIDs -- new version!!
 
 file=$1
