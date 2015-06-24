@@ -130,7 +130,7 @@ def construct_preprocessing_job( prefix, chromosome_num ):
     # add other fixed input file lfns
     for input in [ "ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz", "hg38ToHg19.over.chain.gz",
                   "SNPHistory.bcp.gz", "RsMergeArch.bcp.gz", "HumanOmni25Exome-8v1-1_A_rsids.txt", "HumanCoreExome-24v1-0_A_rsids.txt",
-                  "HRC.r1.GRCh37.autosomes.mac5.sites.tab" ]:
+                  "HRC.r1.GRCh37.autosomes.mac5.sites.tab",  "more-alleles-2015-05-25.R" ]:
         j.uses( File(input), link=Link.INPUT)
 
     #the output file
