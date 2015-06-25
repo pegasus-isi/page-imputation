@@ -11,7 +11,7 @@ CDIR='pwd'
 awk '{print "chr"$1"\t"($4-1)"\t"$4"\t"$2}' $1.bim > $1.liftOver.bed
 
 ## 2. liftBed: liftOver the bed file into build 37
-./liftOver $1.liftOver.bed hg38ToHg19.over.chain.gz $1.liftOverout.bed $1.liftOverout.unlifted
+liftOver $1.liftOver.bed hg38ToHg19.over.chain.gz $1.liftOverout.bed $1.liftOverout.unlifted
 
 ## 3. bed2map: Convert the bed file into plink bim file
 awk -F'chr' '{print $2}' $1.liftOverout.bed | awk '{print $1"\t"$4"\t0\t"$3}' > $1.liftOverout.new.bim
