@@ -93,6 +93,8 @@ $ARGV[0] =~ /(.*)\.bim$/;
 my $file_stem = $1;
 my $tempcount = 1;
 my $tempfile = 'TEMP'.$tempcount;
+# make sure fall into error -- Lisheng
+print SH "set -e\n";
 #remove SNPs
 print SH "$plink --bfile $file_stem --exclude $excludefile --make-bed --out $tempfile\n";
 

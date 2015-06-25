@@ -2,7 +2,7 @@
 #$ -j y
 #$ -cwd
 CDIR='pwd'
-
+set -e
 ## Convert build to 37 via liftOver
 ## Date: May 12, 2015
 ## Created by: Lisheng Zhou
@@ -26,6 +26,8 @@ grep _gl $1.lifted.bim | awk '{print $2}' >> $1.snpExcludeList.txt
 sed -i '/X/d' $1.lifted.bim
 sed -i '/Y/d' $1.lifted.bim
 sed -i '/_gl/d' $1.lifted.bim
+touch $1-liftedfiles.nof
+
 plink --bfile $1 --exclude $1.snpExcludeList.txt --recode --out $1-liftedfiles
 awk '{print $1"\t"$2"\t"$3"\t"$4}' $1.lifted.bim > $1-liftedfiles.map
 #plink-1.9 --file $1-liftedfiles --out $1-FinalVCF --recode vcf ## to match the R script
