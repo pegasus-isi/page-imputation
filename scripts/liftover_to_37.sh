@@ -26,10 +26,10 @@ grep _gl $1.lifted.bim | awk '{print $2}' >> $1.snpExcludeList.txt
 sed -i '/X/d' $1.lifted.bim
 sed -i '/Y/d' $1.lifted.bim
 sed -i '/_gl/d' $1.lifted.bim
-plink-1.9 --bfile $1 --exclude $1.snpExcludeList.txt --recode --out $1-liftedfiles
+plink --bfile $1 --exclude $1.snpExcludeList.txt --recode --out $1-liftedfiles
 awk '{print $1"\t"$2"\t"$3"\t"$4}' $1.lifted.bim > $1-liftedfiles.map
 #plink-1.9 --file $1-liftedfiles --out $1-FinalVCF --recode vcf ## to match the R script
-plink-1.9 --file $1-liftedfiles --out $1-final --make-bed
+plink --file $1-liftedfiles --out $1-final --make-bed
 
 #gzip $1-FinalVCF.vcf
 
