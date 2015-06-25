@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+#
 # Script to check plink .bim files against HRC for strand, id names, positions, alleles, ref/alt assignment
 # W.Rayner 2014 wrayner@well.ox.ac.uk
 # Version 1

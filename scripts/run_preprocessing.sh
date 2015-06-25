@@ -42,7 +42,9 @@ bash liftover_to_37.sh ${study}-${chromosome_num}-result2
 
 
 echo "HRC process step"
-perl HRC-check-bim.pl ${study}-${chromosome_num}-result2-final.bim
+# we need to have x bit set on the .pl file
+# and then can execute it directly
+HRC-check-bim.pl ${study}-${chromosome_num}-result2-final.bim
 
 echo "HRC 2nd step"
 bash Run-plink.sh
