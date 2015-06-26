@@ -52,10 +52,15 @@ rm *-${study}-${chromosome_num}-result2-final.bim
 ## generate xxx-updated.bim
 
 echo "convert into VCF"
-mkdir $study-${chromosome_num}
+mkdir  $study-${chromosome_num}
 mv ${study}-${chromosome_num}-result2-final-updated* $study-${chromosome_num}/
 cd ${study}-${chromosome_num}
 plink --bfile ${study}-${chromosome_num}-result2-final-updated --recode vcf --out ${study}.${chromosome_num}
 gzip ${study}.${chromosome_num}.vcf
+# move the outputs to the parent directory where run_preprocessing is called from
+mv ${study}.${chromosome_num}.vcf.gz ..
+#lizheng what about other files?
+#shoudl they be removed?
+
 cd ..
 
