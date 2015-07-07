@@ -87,7 +87,8 @@ my $excludefile = 'Exclude-'.$ARGV[0];
 open E, ">$excludefile" or die $!;
 
 # shell script for running plink
-open SH, ">Run-plink.sh" or die $!;
+my $lisheng_plinkfile = $ARGV[0].'-Run-plink.sh';
+open SH, ">$lisheng_plinkfile" or die $!;
 #set plink to use here
 my $plink = 'plink';
 

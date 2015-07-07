@@ -47,7 +47,7 @@ echo "HRC process step"
 HRC-check-bim.pl ${study}-${chromosome_num}-result2-final.bim
 
 echo "HRC 2nd step"
-bash Run-plink.sh
+bash ${study}-${chromosome_num}-result2-final.bim-Run-plink.sh
 rm *-${study}-${chromosome_num}-result2-final.bim
 ## generate xxx-updated.bim
 
