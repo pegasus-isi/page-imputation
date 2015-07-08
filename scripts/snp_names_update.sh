@@ -14,6 +14,9 @@ set -e
 file=$1
 study=$2
 
+#file="BioMe-AA_ILLUMINA"
+#study="#file="BioMe-AA_ILLUMINA-22-result"
+
 ## 1. Process a list from dbSNP
 ## Different from the old version, LiftRsNumber.py is used in this version
 awk '{print $2}' $file.bim | grep rs | awk -F"rs" '{print $2}' > ${study}.old_rs_dbSNP.in
