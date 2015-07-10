@@ -53,3 +53,61 @@ tr impute2 {
     type "INSTALLED"
   }
 }
+
+
+#operon rutgers cluster entries
+tr preprocessing { 
+
+  site operon {
+    #profile env "JAVA_HOME" "/bin/java.1.6"
+    pfn "/home/vahi/software/install/PAGE/imputation/run_preprocessing.sh"
+    arch "x86_64"
+    os "macosx"
+    type "INSTALLED"
+  }
+}
+
+tr extract_chromosome { 
+
+  site operon {
+    #profile env "JAVA_HOME" "/bin/java.1.6"
+    pfn "/home/vahi/software/install/PAGE/imputation/extract_chromosome.sh"
+    arch "x86_64"
+    os "macosx"
+    type "INSTALLED"
+  }
+}
+
+
+tr test_shapeit { 
+
+  site operon {
+    #profile env "JAVA_HOME" "/bin/java.1.6"
+    pfn "/home/vahi/software/install/PAGE/imputation/test-shapeit.sh"
+    arch "x86_64"
+    os "macosx"
+    type "INSTALLED"
+  }
+}
+
+tr phase_shapeit { 
+
+  site operon {
+    #profile env "JAVA_HOME" "/bin/java.1.6"
+    pfn "/home/vahi/software/install/PAGE/imputation/phase-shapeit.sh"
+    arch "x86_64"
+    os "macosx"
+    type "INSTALLED"
+  }
+}
+
+tr impute2 { 
+
+  site operon {
+    #profile env "JAVA_HOME" "/bin/java.1.6"
+    pfn "/home/vahi/software/install/PAGE/imputation/impute2.sh"
+    arch "x86_64"
+    os "macosx"
+    type "INSTALLED"
+  }
+}
