@@ -22,6 +22,8 @@ study=$1
 chromosome_num=$2
 file=${study}
 
+PLINK_MEMORY=8192
+export PLINK_MEMORY
 
 CDIR='pwd'
 
@@ -57,7 +59,7 @@ MYTMPDIR=`mktemp -d imputation.XXXXX`
 mv ${study}-${chromosome_num}-result2-final-updated* $MYTMPDIR/
 cd $MYTMPDIR
 #cd ${study}-${chromosome_num}
-plink --memory --bfile ${study}-${chromosome_num}-result2-final-updated --recode vcf --out ${study}.${chromosome_num}
+plink --memory ${PLINK_MEMORY} --bfile ${study}-${chromosome_num}-result2-final-updated --recode vcf --out ${study}.${chromosome_num}
 gzip ${study}.${chromosome_num}.vcf
 # move the outputs to the parent directory where run_preprocessing is called from
 mv ${study}.${chromosome_num}.vcf.gz ..

@@ -28,10 +28,10 @@ sed -i '/Y/d' $1.lifted.bim
 sed -i '/_gl/d' $1.lifted.bim
 touch $1-liftedfiles.nof
 
-plink --memory --bfile $1 --exclude $1.snpExcludeList.txt --recode --out $1-liftedfiles
+plink --memory ${PLINK_MEMORY} --bfile $1 --exclude $1.snpExcludeList.txt --recode --out $1-liftedfiles
 awk '{print $1"\t"$2"\t"$3"\t"$4}' $1.lifted.bim > $1-liftedfiles.map
 #plink-1.9 --file $1-liftedfiles --out $1-FinalVCF --recode vcf ## to match the R script
-plink --memory --file $1-liftedfiles --out $1-final --make-bed
+plink --memory ${PLINK_MEMORY} --file $1-liftedfiles --out $1-final --make-bed
 
 #gzip $1-FinalVCF.vcf
 
