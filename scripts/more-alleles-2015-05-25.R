@@ -46,8 +46,9 @@ if (nrow(problem.alleles) > 0){
 
 	write.table(problem.alleles[, c("ID", "A1", "A2", "newA1", "newA2")], file = temp.filename2, col.names = FALSE, row.names = FALSE, quote = FALSE)
 }
-
-system(paste("plink --bfile", input.prefix, "--update-alleles", temp.filename2, "--make-bed --out", output.prefix))
+system("PLINK_MEMORY=8192")
+system("export PLINK_MEMORY")
+system(paste("plink --memory ${PLINK_MEMORY} --bfile", input.prefix, "--update-alleles", temp.filename2, "--make-bed --out", output.prefix))
 
 ## Clean up
 #system(paste("rm ", temp.filename1, temp.filename2))

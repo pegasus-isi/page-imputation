@@ -99,29 +99,31 @@ my $tempfile = 'TEMP'.$tempcount;
 # make sure fall into error -- Lisheng
 print SH "set -e\n";
 #remove SNPs
-print SH "$plink --bfile $file_stem --exclude $excludefile --make-bed --out $tempfile\n";
+print SH "PLINK_MEMORY=8192\n";
+print SH "export PLINK_MEMORY\n";
+print SH "$plink --memory ${PLINK_MEMORY} --bfile $file_stem --exclude $excludefile --make-bed --out $tempfile\n";
 
 #change chromosome
-print SH "$plink --bfile $tempfile --update-map $chrfile --update-chr --make-bed --out ";
+print SH "$plink --memory ${PLINK_MEMORY} --bfile $tempfile --update-map $chrfile --update-chr --make-bed --out ";
 $tempcount++;
 $tempfile = 'TEMP'.$tempcount;
 print SH "$tempfile\n";
 
 #change positions
-print SH "$plink --bfile $tempfile --update-map $posfile --make-bed --out ";
+print SH "$plink --memory ${PLINK_MEMORY} --bfile $tempfile --update-map $posfile --make-bed --out ";
 $tempcount++;
 $tempfile = 'TEMP'.$tempcount;
 print SH "$tempfile\n";
 
 #flip strand
-print SH "$plink --bfile $tempfile --flip $strandfile --make-bed --out ";
+print SH "$plink --memory ${PLINK_MEMORY} --bfile $tempfile --flip $strandfile --make-bed --out ";
 $tempcount++;
 $tempfile = 'TEMP'.$tempcount;
 print SH "$tempfile\n";
 
 #force alleles
 my $newfile = $file_stem.'-updated';
-print SH "$plink --bfile $tempfile --reference-allele $forcefile --make-bed --out $newfile\n";
+print SH "$plink --memory ${PLINK_MEMORY} --bfile $tempfile --reference-allele $forcefile --make-bed --out $newfile\n";
 
 #split into per chromosome files
 #for (my $i = 1; $i <= 22; $i++)
