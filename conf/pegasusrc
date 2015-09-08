@@ -1,14 +1,28 @@
-pegasus.catalog.replica File
-
+# tell Pegasus where the catalog containing the locations of the 
+# executables exists
 pegasus.catalog.transformation Text
 pegasus.catalog.transformation.file  ./conf/tc.text
-
+ 
+# tell Pegasus where the catalog describing the 
+# computation cluster where we are going to run the workflows at
 pegasus.catalog.site.file ./conf/sites.xml
-
-pegasus.catalog.replica.directory.site corbusier
+ 
+# the site name of the compute site
+# we set this , to associate the site attribute for
+# the files specified by input-dir option for pegasus-plan
+pegasus.catalog.replica.directory.site operon
+ 
+ 
+# tell Pegasus to symlink against the input files in the
+# input-dir
 pegasus.transfer.links = true
-
+ 
+# no registration of outputs
 pegasus.register=false
-
+ 
+# condor quoting breaks for glite
+pegasus.condor.arguments.quote false
+# controls the number of impute2 and shapeit jobs that
+# run at a given time per workflow
 dagman.impute2.MAXJOBS 1
 dagman.shapeit.MAXJOBS 1
