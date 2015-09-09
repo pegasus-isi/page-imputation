@@ -11,8 +11,7 @@ pegasus.catalog.site.file ./conf/sites.xml
 # we set this , to associate the site attribute for
 # the files specified by input-dir option for pegasus-plan
 pegasus.catalog.replica.directory.site operon
- 
- 
+  
 # tell Pegasus to symlink against the input files in the
 # input-dir
 pegasus.transfer.links = true
@@ -20,6 +19,9 @@ pegasus.transfer.links = true
 # no registration of outputs
 pegasus.register=false
  
+# identify the application
+pegasus.metrics.app imputation2
+
 # condor quoting breaks for glite
 pegasus.condor.arguments.quote false
 # controls the number of impute2 and shapeit jobs that
