@@ -309,7 +309,7 @@ def construct_imputation_job( prefix, chromosome_num, reference_file_prefix, snp
     j.uses( File(genetic_map_combined_lfn), link=Link.INPUT)
 
     output_prefix = prefix + "." + chromosome_name + ".pos" + chunk_start + "-" + chunk_end ;
-    for suffix in [".impute2_diplotype_ordering" ,".impute2_info" ,".impute2_info_by_sample", ".impute2_summary", ".impute2_warnings"]:
+    for suffix in [".impute2.gz", ".impute2_diplotype_ordering" ,".impute2_info" ,".impute2_info_by_sample", ".impute2_summary", ".impute2_warnings"]:
         j.uses( output_prefix + suffix, link=Link.OUTPUT, transfer=True)
 
     # Include dependant executable
