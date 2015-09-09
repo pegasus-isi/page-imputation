@@ -37,6 +37,6 @@ plink --memory ${PLINK_MEMORY} --file $1-liftedfiles --out $1-final --make-bed
 
 ## 5. remove unnecessary files
 rm $1.liftOver.bed $1.liftOverout.bed $1.liftOverout.unlifted
-rm $1.liftOverout.new.bim $1.snpExcludeList.txt
+rm $1.liftOverout.new.bim
 rm $1.attach2bim.out
 rm $1.lifted.bim $1-liftedfiles.log $1-liftedfiles.map $1-liftedfiles.nof $1-liftedfiles.ped
