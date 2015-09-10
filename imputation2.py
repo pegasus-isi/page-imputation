@@ -140,9 +140,9 @@ def construct_preprocessing_job( prefix, chromosome_num ):
     j.uses(File( genotype_lfn ), link=Link.OUTPUT)
 
     #They will generate files that contain the excluded SNPs.
-    # Names of the outputs are: ${study}-${chromosome_num}-result2.snpExcludeList.txt and ${study}-${chromosome_num}-result.snpExcludeList.2.txt.
-    for suffix in [ "-result2.snpExcludeList.txt", "-result.snpExcludeList.2.txt" ]:
-        j.uses( File( prefix + "-" + str(chromosome_num) + suffix ), link=Link.OUTPUT)
+    # Names of the outputs are: ${study}-${chromosome_num}-result2.snpExcludeList.txt and ${study}-${chromosome_num}-result.snpExcludeList.txt.
+    for suffix in [ "-result.snpExcludeList.txt", "-result2.snpExcludeList.txt" ]:
+        j.uses( File( prefix + "-" + str(chromosome_num) + suffix ), link=Link.OUTPUT, transfer=True)
 
     # Finish job
     j.addArguments(*args)
