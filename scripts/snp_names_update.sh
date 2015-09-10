@@ -46,7 +46,7 @@ plink --memory  ${PLINK_MEMORY} --bfile ${study}.TEMP3 --exclude ${study}.temp2.
 ## 3c. To remove SNPs with same name but different in ref and alt alleles
 awk '{print $2}' ${study}.TEMP4.bim | sort | uniq -d > ${study}.temp3.out
 plink --memory  ${PLINK_MEMORY} --bfile ${study}.TEMP4 --exclude ${study}.temp3.out --make-bed --out $study
-mv ${study}.temp3.out ${study}.snpExcludeList.2.txt
+mv ${study}.temp3.out ${study}.snpExcludeList.txt
 rm ${study}.temp* ${study}.TEMP*
 
 
