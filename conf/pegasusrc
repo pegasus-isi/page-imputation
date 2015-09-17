@@ -26,5 +26,6 @@ pegasus.metrics.app imputation2
 pegasus.condor.arguments.quote false
 # controls the number of impute2 and shapeit jobs that
 # run at a given time per workflow
-dagman.impute2.MAXJOBS 1
+dagman.impute2.MAXJOBS 30
 dagman.shapeit.MAXJOBS 1
+
