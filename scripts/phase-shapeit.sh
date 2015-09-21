@@ -42,3 +42,4 @@ then
     
 fi
 
+mv ./$3/$1.chr$2.duplicate.snp.site.out ./$3/$1.chr$2.phase.duplicate.snp.site.out 
