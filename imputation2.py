@@ -272,6 +272,15 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
         output_file = prefix + ".phase." + chromosome_name + suffix
         j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
 
+    ## Edited by Lisheng - 09/21/2015
+    ## Add file $1.chr$2.phase.duplicate.snp.site.out
+    ## this should be stored to later analysis
+
+    output_file = prefix + "." + chromosome_name + ".phase.duplicate.snp.site.out"
+    j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
+    ## Edited by Lisheng -- END
+
+
     #associate a DAGMAN category for throttling purposes
     j.addProfile( Profile("dagman", "CATEGORY", PHASE_SHAPEIT_DAGMAN_CATEGORY ))
 
