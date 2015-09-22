@@ -277,7 +277,7 @@ def construct_phase_shapeit_job( prefix, chromosome_num, reference_file_prefix, 
     ## this should be stored to later analysis
 
     output_file = prefix + "." + chromosome_name + ".phase.duplicate.snp.site.out"
-    j.uses( output_file, link=Link.OUTPUT, transfer=DEFAULT_INTERMEDIATE_FILES_TRANSFER_FLAG)
+    j.uses( output_file, link=Link.OUTPUT, transfer=True)
     ## Edited by Lisheng -- END
 
 
