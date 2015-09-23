@@ -27,5 +27,7 @@ pegasus.condor.arguments.quote false
 # controls the number of impute2 and shapeit jobs that
 # run at a given time per workflow
 dagman.impute2.MAXJOBS 30
-dagman.shapeit.MAXJOBS 1
+dagman.shapeit.MAXJOBS 4
 
+# change how the outputs are staged to the outputs directory
+pegasus.transfer.refiner Cluster
