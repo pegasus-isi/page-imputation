@@ -31,3 +31,6 @@ dagman.shapeit.MAXJOBS 4
 
 # change how the outputs are staged to the outputs directory
 pegasus.transfer.refiner Cluster
+
+# we want to run the workflows in a nonshared fs setup
+pegasus.data.configuration nonsharedfs
