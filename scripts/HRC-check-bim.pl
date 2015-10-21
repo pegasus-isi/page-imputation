@@ -95,7 +95,7 @@ my $plink = 'plink';
 $ARGV[0] =~ /(.*)\.bim$/;
 my $file_stem = $1;
 my $tempcount = 1;
-my $tempfile = 'TEMP'.$tempcount;
+my $tempfile = $ARGV[0].'TEMP'.$tempcount;
 # make sure fall into error -- Lisheng
 print SH "set -e\n";
 #remove SNPs
@@ -106,19 +106,19 @@ print SH "$plink --memory \${PLINK_MEMORY} --bfile $file_stem --exclude $exclude
 #change chromosome
 print SH "$plink --memory \${PLINK_MEMORY} --bfile $tempfile --update-map $chrfile --update-chr --make-bed --out ";
 $tempcount++;
-$tempfile = 'TEMP'.$tempcount;
+$tempfile = $ARGV[0].'TEMP'.$tempcount;
 print SH "$tempfile\n";
 
 #change positions
 print SH "$plink --memory \${PLINK_MEMORY} --bfile $tempfile --update-map $posfile --make-bed --out ";
 $tempcount++;
-$tempfile = 'TEMP'.$tempcount;
+$tempfile = $ARGV[0].'TEMP'.$tempcount;
 print SH "$tempfile\n";
 
 #flip strand
 print SH "$plink --memory \${PLINK_MEMORY} --bfile $tempfile --flip $strandfile --make-bed --out ";
 $tempcount++;
-$tempfile = 'TEMP'.$tempcount;
+$tempfile = $ARGV[0].'TEMP'.$tempcount;
 print SH "$tempfile\n";
 
 #force alleles
@@ -131,7 +131,7 @@ print SH "$plink --memory \${PLINK_MEMORY} --bfile $tempfile --reference-allele 
 # my $perchrfile = $newfile.'-chr'.$i;
 # print SH "$plink --bfile $newfile --reference-allele $forcefile --make-bed --chr $i --out $perchrfile\n";
 # }
-print SH "rm TEMP*\n";
+print SH "rm $ARGV[0].TEMP*\n";
 
 while (<IN>)
  {
