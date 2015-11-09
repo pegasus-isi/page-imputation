@@ -60,6 +60,13 @@ do
 	fi
 	echo "$i"
 	echo "$j"
-	bash impute2.sh $study $num $i $j $node
+	#edited by Lisheng: 11/09/2015
+	count=$(awk -v d1="$i" -v d2="$j" '{if (($3 >=d1 )&&($3<=d2)) print $0}' BioMe-AA_ILLUMINA.phase.chr${num}.haps | wc -l)
+
+	if [ $count > 0 ]
+	then
+		bash impute2.sh $study $num $i $j $node
+	fi
+	## END 11/09/2015
 done
 
