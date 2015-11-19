@@ -186,7 +186,7 @@ do
 	#edited by Lisheng: 11/16/2015
 	count=$(awk -v d1="$i" -v d2="$j" '{if (($3 >=d1 )&&($3<=d2)) print $0}' ${STUDY_NAME}.phase.chr${CHR}.haps | wc -l)
 
-	if [ $count > 0 ]
+	if [ $count -gt 0 ]
 	then
 	
 		execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
