@@ -131,7 +131,25 @@ if [ $# -eq 5 ];then
 	CHUNK_START=`printf "%.0f" $4`
 	CHUNK_END=`printf "%.0f" $5`
 
-	execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
+	count=$(awk -v d1="$i" -v d2="$j" '{if (($3 >=d1 )&&($3<=d2)) print $0}' ${STUDY_NAME}.phase.chr${CHR}.haps | wc -l)
+
+        if [ $count -gt 0 ]
+        then
+
+                execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
+        else
+                echo "No SNP in this chunk; impute2 skipped this chunk" > ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_summary
+                touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_warnings
+                touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_info
+                touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_info_by_sample
+                touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2
+                gzip ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2
+                touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_diplotype_ordering
+        fi
+
+
+
+	#execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
 	
 fi
 
@@ -191,7 +209,7 @@ do
 	
 		execute_impute_job $CHR $CHUNK_START $CHUNK_END $DIRECTORY
 	else
-		echo "No SNP in this chunk; impute2 stops" > ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_summary
+		echo "No SNP in this chunk; impute2 skipped this chunk" > ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_summary
 		touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_warnings
 		touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_info
 		touch ${STUDY_NAME}.chr${CHR}.pos${i}-${j}.impute2_info_by_sample
