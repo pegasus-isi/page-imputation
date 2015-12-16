@@ -217,7 +217,36 @@ do
 		gzip ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
 		touch ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_diplotype_ordering
 	fi
+	## if they don't exist, create them: 12-15-2015
+	if [ ! -e ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_warnings ]
+	then
+        	touch ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_warnings
+	fi
+
+	if [ ! -e ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_info ]
+	then 
+		touch ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_info
+	fi
+
+
+	if [ ! -e ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_info_by_sample ]
+	then 
+		touch ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_info_by_sample
+	fi
+
+	if [ ! -e ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2.gz ]
+	then
+		touch ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
+		gzip ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2
+	fi
+
+	if [ ! -e ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_diplotype_ordering ]
+	then
+		touch ${STUDY_NAME}.chr${CHR}.pos${CHUNK_START}-${CHUNK_END}.impute2_diplotype_ordering
+	fi
+
 done
 
 fi
+
 
