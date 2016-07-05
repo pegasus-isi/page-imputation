@@ -44,7 +44,8 @@ if (nrow(problem.alleles) > 0){
 	problem.alleles$newA2[problem.alleles$A2 == rev.strand(problem.alleles$REF)] <- rev.strand(problem.alleles$REF[problem.alleles$A2 == rev.strand(problem.alleles$REF)])
 	problem.alleles$newA1[problem.alleles$A2 == rev.strand(problem.alleles$REF)] <- rev.strand(problem.alleles$ALT[problem.alleles$A2 == rev.strand(problem.alleles$REF)])
 
-	write.table(problem.alleles[, c("ID", "A1", "A2", "newA1", "newA2")], file = temp.filename2, col.names = FALSE, row.names = FALSE, quote = FALSE)
+#	write.table(problem.alleles[, c("ID", "A1", "A2", "newA1", "newA2")], file = temp.filename2, col.names = FALSE, row.names = FALSE, quote = FALSE)
+	write.table(na.omit(problem.alleles[, c("ID", "A1", "A2", "newA1", "newA2")]), file = temp.filename2, col.names = FALSE, row.names = FALSE, quote = FALSE) 
 }
 system("PLINK_MEMORY=8192")
 system("export PLINK_MEMORY")
