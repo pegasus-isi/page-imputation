@@ -32,7 +32,10 @@ rm ${study}.temp* ${study}.old_rs_dbSNP.in ${study}.lifted_rs_dbSNP.out
 ## 2. Process two lists: HumanCoreExome-24v1-0_A_rsids.txt HumanOmni25Exome-8v1-1_A_rsids.txt
 cat HumanCoreExome-24v1-0_A_rsids.txt HumanOmni25Exome-8v1-1_A_rsids.txt | grep Name -v | grep '\.' -v > ${study}.temp1.out
 perl -nle 'unless($hash{$_}++){print $_}' ${study}.temp1.out > ${study}.temp2.out
-plink --memory  ${PLINK_MEMORY} --bfile ${study}.TEMP1 --update-map ${study}.temp2.out --update-name --make-bed --out ${study}.TEMP2
+
+plink --memory ${PLINK_MEMORY} --bfile ${study}.TEMP1 --bmerge ${study}.TEMP1 --make-bed --out ${study}.TEMP1.temp
+
+plink --memory  ${PLINK_MEMORY} --bfile ${study}.TEMP1.temp --update-map ${study}.temp2.out --update-name --make-bed --out ${study}.TEMP2
 
 rm ${study}.temp*
 
