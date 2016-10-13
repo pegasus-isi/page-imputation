@@ -1,9 +1,13 @@
 # page-imputation
-Pegasus Imputation Workflows for PAGE2
+Pegasus Imputation Workflows for PAGE2. PAGE II (Population Architecture using Genomics and Epidemiology) study has genotyped 50,000 samples using MEGA, an Illumina high density consortium-built array. The center is also imputing an additional 50,000 subjects genotyped in 20 different GWAS studies. Imputation is primarily done using SHAPEIT and IMPUTE2 with 1000 Genomes Project Reference Panel.
+
+Imputation process  can be parallelized by chromosome to reduce total processing time. To do these imputation studies, a Pegasus imputation pipeline was developed. The production were done on Rutgers Uniersity Genetics Cluster called operon.
 
 ## Workflow
 
-Here is an image of the DAX that does imputation for a single genotype/ GWAS study. ![Imputation Sample](./examples/imputation2-sample.jpg). The workflow does processing per chromosome in parallel. For each chromosome the following steps are applied
+Here is an image of the DAX that does imputation for a single genotype/ GWAS study. ![Imputation Sample](./examples/imputation2-sample.jpg). The workflow does processing per chromosome in parallel and  is agnostic  to array, strand, and build of the input data.
+
+For each chromosome the following steps are applied
 
 1. preprocess input data and make sure they are ready for imputation
   * to convert genome position from one build to another
