@@ -2,6 +2,9 @@
 Pegasus Imputation Workflows for PAGE2
 
 ## Workflow
+
+Here is an image of the DAX that does imputation for a single genotype/ GWAS study. ![Registration](./examples/imputation2-sample.jpg)
+
 ### preprocess input data and make sure they are ready for imputation
 * to convert genome position from one build to another
 * to convert dbSNP rs number from one build to another
