@@ -3,24 +3,49 @@ Pegasus Imputation Workflows for PAGE2
 
 ## Workflow
 
-Here is an image of the DAX that does imputation for a single genotype/ GWAS study. ![Registration](./examples/imputation2-sample.jpg)
+Here is an image of the DAX that does imputation for a single genotype/ GWAS study. ![Imputation Sample](./examples/imputation2-sample.jpg). The workflow does processing per chromosome in parallel. For each chromosome the following steps are applied
 
-### preprocess input data and make sure they are ready for imputation
+1. preprocess input data and make sure they are ready for imputation
 * to convert genome position from one build to another
 * to convert dbSNP rs number from one build to another
 * to rewrite plink \*.bim file when a SNP is monomorphic by comparing to 1000 Genome Project
 * to do a QC check before imputation
 
-### extract chromosomes
+2. extract chromosomes
 * to filter out duplicate SNPs, INDELs
 * to extract a chromosome for imputation
 * to recode data into VCF format
 
-### phasing
+3. phasing
 * implement SHAPEIT for haplotypes estimation (phasing)
 
-### imputation
+4. imputation
 * implememt IMPUTE2 for genotype imputation
+
+### Dependant Executables
+The pipeline refers to a lot of other scripts and executables that need to be installed on your cluster. 
+
+1. liftOver: https://genome-store.ucsc.edu [preprocessing]
+- to convert genome position from one build to another
+
+2. LiftRsNumber.py: http://genome.sph.umich.edu/wiki/LiftOver#Lift_dbSNP_rs_numbers [preprocessing]
+- to convert dbSNP rs number from one build to another
+
+3. HRC-check-bim.pl: http://www.well.ox.ac.uk/~wrayner/tools/ [preprocessing]
+- to do a QC check before imputation
+
+4. more-alleles-2015-05-25.R [preprocessing]
+- to rewrite plink *.bim file when a SNP is monomorphic by comparing to 1KGP
+
+5. extra-duplicate.pl [extract_chromosome]
+- to extract duplicate SNP positions from VCF
+
+6.  vcftools: https://vcftools.github.io/index.html [extract_chromosome]
+- to remove INDELs and recode VCF files
+
+7. phaseit : https://mathgen.stats.ox.ac.uk/genetics_software/shapeit/shapeit.html
+
+8. impute2 : http://mathgen.stats.ox.ac.uk/impute/impute_v2.html
 
 ## How to set it up in cluster (use operon as an example)
 
